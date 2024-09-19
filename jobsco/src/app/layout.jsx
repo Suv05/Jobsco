@@ -1,9 +1,12 @@
 import { ClerkProvider } from "@clerk/nextjs";
-import Providers from "./Providers";
-import "./globals.css";
+import { auth } from "@clerk/nextjs/server";
+
 import { Rubik } from "next/font/google";
 import { Suspense } from "react";
 
+import "./globals.css";
+
+import Providers from "./Providers";
 import Header from "@/components/Header/Header.jsx";
 import Footer from "@/components/Footer/Footer";
 import Spinner from "./loading";
@@ -13,16 +16,21 @@ const rubik = Rubik({
   variable: "--font-rubik",
 });
 
-export default function RootLayout({ children }) {
+async function RootLayout({ children }) {
+  // Get the userId from auth() -- if null, the user is not signed in
+  const { userId } = auth();
+
   return (
     <html lang="en" className={`${rubik.variable} font-sans`}>
-      <body className="flex flex-col min-h-screen">
+      <body>
         <Suspense fallback={<Spinner />}>
           <ClerkProvider>
             <Providers>
-              <Header />
-              <main className="flex-grow">{children}</main>
-              <Footer />
+              <div className="flex flex-col min-h-screen">
+                <Header user={userId} />
+                <main className="flex-grow">{children}</main>
+                <Footer />
+              </div>
             </Providers>
           </ClerkProvider>
         </Suspense>
@@ -30,3 +38,5 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+
+export default RootLayout;
