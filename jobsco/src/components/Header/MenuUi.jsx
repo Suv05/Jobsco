@@ -1,10 +1,18 @@
 import Link from "next/link";
+import { UserButton } from "@clerk/nextjs";
+import { useSelector } from "react-redux";
+import { motion } from 'framer-motion';
+
 import { FaBars } from "react-icons/fa";
+import { CiSettings } from "react-icons/ci";
+import { CiBellOn } from "react-icons/ci";
 
 export default function MenuUi({ toggleMenu }) {
+  const { user } = useSelector((state) => state.user);
+
   return (
     <>
-      <header className="bg-[#181C14] shadow-md fixed top-0 left-0 right-0 z-50">
+      <header className="bg-[#141413] shadow-md fixed top-0 left-0 right-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6 md:justify-start md:space-x-10">
             {/* Logo */}
@@ -63,13 +71,55 @@ export default function MenuUi({ toggleMenu }) {
 
             {/* CTA button */}
             <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-              <Link
-                href="/sign-in"
-                className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
-              >
-                Sign-in
-              </Link>
-            </div>
+      {user ? (
+        <motion.div 
+          className="flex items-center"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <motion.div 
+            className="rounded-full me-2"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <UserButton />
+          </motion.div>
+          <motion.div 
+            className="rounded-full p-2 bg-[#222222] border border-gray-600 me-2 cursor-pointer hover:bg-[#333333] transition-colors duration-200"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <CiSettings size={20} className="text-gray-200" />
+          </motion.div>
+          <motion.div 
+            className="rounded-full p-2 bg-[#222222] border border-gray-600 cursor-pointer hover:bg-[#333333] transition-colors duration-200"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <CiBellOn size={20} className="text-gray-200" />
+          </motion.div>
+        </motion.div>
+      ) : (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <Link
+            href="/sign-in"
+            className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-200"
+          >
+            <motion.span
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Sign-in
+            </motion.span>
+          </Link>
+        </motion.div>
+      )}
+    </div>
           </div>
         </div>
       </header>
