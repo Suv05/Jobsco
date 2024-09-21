@@ -63,11 +63,11 @@ export default function OnboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 flex items-center justify-center p-4 mt-14">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 flex items-center justify-center p-4">
       <Card className="w-full max-w-4xl overflow-hidden shadow-2xl">
         <CardHeader className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6">
           <CardTitle className="text-3xl font-bold text-center">
-            Welcome to JobPortal
+            Welcome to Jobsco 🎊
           </CardTitle>
           <CardDescription className="text-center text-blue-100">
             Let's personalize your experience
@@ -93,7 +93,7 @@ export default function OnboardPage() {
             disabled={!selectedRole}
             onClick={() => selectedRole && handleRoleSelection(selectedRole)}
           >
-            Continue to Dashboard
+            Continue to Onboarding
             <ChevronRight className="ml-2 h-4 w-4" />
           </Button>
         </CardFooter>
