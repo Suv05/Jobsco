@@ -1,17 +1,19 @@
-import { currentUser } from "@clerk/nextjs/server"
-import { fetchRecuterInfo } from "@/actions/fetchInfo-action"
+import { currentUser } from "@clerk/nextjs/server";
+import { fetchRecuterInfo } from "@/actions/fetchInfo-action";
 
-import RecutorProfileCard from "@/components/Info-card/RecutorProfileCard"
+import Link from "next/link";
+
+import RecutorProfileCard from "@/components/Info-card/RecutorProfileCard";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Progress } from "@/components/ui/progress"
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
 import {
   Briefcase,
   Users,
@@ -19,11 +21,11 @@ import {
   MessageSquare,
   Search,
   Plus,
-} from "lucide-react"
+} from "lucide-react";
 
 async function RecruiterDashboard() {
-  const user = await currentUser()
-  const { data: recurtorInfo } = await fetchRecuterInfo(user?.id)
+  const user = await currentUser();
+  const { data: recurtorInfo } = await fetchRecuterInfo(user?.id);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 px-2 mt-3">
@@ -37,10 +39,16 @@ async function RecruiterDashboard() {
         <RecutorProfileCard recruiterData={recurtorInfo} />
 
         <div className="mb-8 flex space-x-4">
-          <Button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition-all duration-300">
-            <Plus className="mr-2 h-4 w-4" /> Post New Job
-          </Button>
-          <Button variant="outline" className="border-blue-500 text-blue-500 hover:bg-blue-50 transition-all duration-300">
+          <Link href={`/post-job`}>
+            <Button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition-all duration-300">
+              <Plus className="mr-2 h-4 w-4" /> Post New Job
+            </Button>
+          </Link>
+
+          <Button
+            variant="outline"
+            className="border-blue-500 text-blue-500 hover:bg-blue-50 transition-all duration-300"
+          >
             <Search className="mr-2 h-4 w-4" /> Search Candidates
           </Button>
         </div>
@@ -58,11 +66,7 @@ async function RecruiterDashboard() {
             value="143"
             change="+28"
           />
-          <StatCard 
-            icon={BarChart2} 
-            title="Interview Scheduled" 
-            value="8"
-          />
+          <StatCard icon={BarChart2} title="Interview Scheduled" value="8" />
           <StatCard
             icon={MessageSquare}
             title="Unread Messages"
@@ -74,7 +78,9 @@ async function RecruiterDashboard() {
         <Card className="mb-8 overflow-hidden">
           <CardHeader className="bg-gradient-to-r from-blue-500 to-purple-600 text-white">
             <CardTitle>Recent Job Postings</CardTitle>
-            <CardDescription className="text-blue-100">Your most recent job listings</CardDescription>
+            <CardDescription className="text-blue-100">
+              Your most recent job listings
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -106,7 +112,9 @@ async function RecruiterDashboard() {
         <Card>
           <CardHeader className="bg-gradient-to-r from-green-400 to-blue-500 text-white">
             <CardTitle>Candidate Pipeline</CardTitle>
-            <CardDescription className="text-blue-100">Overview of your hiring funnel</CardDescription>
+            <CardDescription className="text-blue-100">
+              Overview of your hiring funnel
+            </CardDescription>
           </CardHeader>
           <CardContent className="mt-4">
             <div className="space-y-6">
@@ -120,7 +128,7 @@ async function RecruiterDashboard() {
         </Card>
       </main>
     </div>
-  )
+  );
 }
 
 function StatCard({ icon: Icon, title, value, change }) {
@@ -143,7 +151,7 @@ function StatCard({ icon: Icon, title, value, change }) {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }
 
 function JobListing({ title, department, location, applicants, daysAgo }) {
@@ -165,7 +173,7 @@ function JobListing({ title, department, location, applicants, daysAgo }) {
         <p className="text-sm text-gray-600">{daysAgo} days ago</p>
       </div>
     </div>
-  )
+  );
 }
 
 function PipelineStage({ stage, count, percentage }) {
@@ -177,7 +185,7 @@ function PipelineStage({ stage, count, percentage }) {
       </div>
       <Progress value={percentage} className="h-2" />
     </div>
-  )
+  );
 }
 
-export default RecruiterDashboard
+export default RecruiterDashboard;
