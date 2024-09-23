@@ -24,9 +24,9 @@ const JobSchema = new Schema(
       enum: ["fulltime", "parttime", "internship", "contract"],
       required: true,
     },
-    salaryRange: {
-      min: { type: String },
-      max: { type: String },
+    salary: {
+      type:String,
+      required: true,
     },
     experienceLevel: { type: String, required: true },
     skillsRequired: [{ type: String }],
