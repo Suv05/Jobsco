@@ -32,14 +32,7 @@ const jobSchema = z.object({
   company: z.string().min(1, "Company name is required"),
   location: z.string().min(1, "Location is required"),
   jobType: z.enum(["fulltime", "parttime", "internship", "contract"]),
-  salaryMin: z
-    .number()
-    .min(0, "Minimum salary must be a positive number")
-    .optional(),
-  salaryMax: z
-    .number()
-    .min(0, "Maximum salary must be a positive number")
-    .optional(),
+  salary: z.string().min(1, "salary must be a positive number"),
   experienceLevel: z.string().min(1, "Experience level is required"),
   industry: z.string().optional(),
   educationRequirements: z.string().optional(),
@@ -231,58 +224,28 @@ export default function JobPostingForm() {
 
                 <div>
                   <Label
-                    htmlFor="salaryMin"
+                    htmlFor="salary"
                     className="text-lg font-semibold text-gray-700"
                   >
-                    Minimum Salary
+                    Salary
                   </Label>
                   <div className="mt-2 relative rounded-md shadow-sm">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                       <DollarSign className="h-5 w-5 text-gray-400" />
                     </div>
                     <Input
-                      id="salaryMin"
-                      type="number"
-                      {...register("salaryMin", {
-                        valueAsNumber: true,
-                        required: "Minimum salary is required",
+                      id="salary"
+                      type="text"
+                      {...register("salary", {
+                        required: "salary is required",
                       })}
                       className="pl-10 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                      placeholder="Enter minimum salary"
+                      placeholder="115k"
                     />
                   </div>
-                  {errors.salaryMin && (
+                  {errors.salary && (
                     <p className="text-red-500 text-sm mt-1">
-                      {errors.salaryMin.message}
-                    </p>
-                  )}
-                </div>
-
-                <div>
-                  <Label
-                    htmlFor="salaryMax"
-                    className="text-lg font-semibold text-gray-700"
-                  >
-                    Maximum Salary
-                  </Label>
-                  <div className="mt-2 relative rounded-md shadow-sm">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <DollarSign className="h-5 w-5 text-gray-400" />
-                    </div>
-                    <Input
-                      id="salaryMax"
-                      type="number"
-                      {...register("salaryMax", {
-                        valueAsNumber: true,
-                        required: "Maximum salary is required",
-                      })}
-                      className="pl-10 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                      placeholder="Enter maximum salary"
-                    />
-                  </div>
-                  {errors.salaryMax && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.salaryMax.message}
+                      {errors.salary.message}
                     </p>
                   )}
                 </div>
