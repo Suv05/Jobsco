@@ -1,8 +1,6 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { fetchRecuterInfo } from "@/actions/fetchInfo-action";
-
 import Link from "next/link";
-
 import RecutorProfileCard from "@/components/Info-card/RecutorProfileCard";
 import {
   Card,
@@ -21,11 +19,14 @@ import {
   MessageSquare,
   Search,
   Plus,
+  ArrowRight,
 } from "lucide-react";
+import { fetchRJobs } from "@/actions/fetch-Rjobs";
 
 async function RecruiterDashboard() {
   const user = await currentUser();
   const { data: recurtorInfo } = await fetchRecuterInfo(user?.id);
+  const { data: recurtorJobInfo } = await fetchRJobs(user?.id);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 px-2 mt-3">
@@ -76,35 +77,44 @@ async function RecruiterDashboard() {
         </div>
 
         <Card className="mb-8 overflow-hidden">
-          <CardHeader className="bg-gradient-to-r from-blue-500 to-purple-600 text-white">
-            <CardTitle>Recent Job Postings</CardTitle>
-            <CardDescription className="text-blue-100">
-              Your most recent job listings
-            </CardDescription>
+          <CardHeader className="bg-gradient-to-r from-blue-500 to-purple-600 text-white flex justify-between items-start">
+            <div>
+              <CardTitle>Recent Job Postings</CardTitle>
+              <CardDescription className="text-blue-100">
+                Your most recent job listings
+              </CardDescription>
+            </div>
+            <Link href={`/${user?.id}/jobs`} passHref>
+              <Button
+                variant="secondary"
+                size="sm"
+                className="text-blue-600 bg-white hover:bg-blue-50"
+              >
+                View all jobs
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <JobListing
-                title="Senior React Developer"
-                department="Engineering"
-                location="Remote"
-                applicants={23}
-                daysAgo={2}
-              />
-              <JobListing
-                title="UX Designer"
-                department="Design"
-                location="New York, NY"
-                applicants={15}
-                daysAgo={4}
-              />
-              <JobListing
-                title="Product Manager"
-                department="Product"
-                location="San Francisco, CA"
-                applicants={31}
-                daysAgo={7}
-              />
+              {recurtorJobInfo && recurtorJobInfo.length > 0 ? (
+                recurtorJobInfo.map((job, index) => (
+                  <JobListing
+                    title={job?.title}
+                    department={job?.industry}
+                    location={job?.location}
+                    applicants={23}
+                    daysAgo={Math.round(
+                      (new Date() - new Date(job?.createdAt)) /
+                        (1000 * 60 * 60 * 24)
+                    )}
+                  />
+                ))
+              ) : (
+                <p className=" text-center text-2xl font-semibold text-slate-800">
+                  No Job Available
+                </p>
+              )}
             </div>
           </CardContent>
         </Card>
