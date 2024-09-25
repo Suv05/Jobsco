@@ -6,6 +6,7 @@ import { deleteRJob } from "@/actions/fetch-Rjobs";
 import Spinner from "@/app/loading";
 import { useUser } from "@clerk/nextjs";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import {
   ChevronDown,
   MapPin,
@@ -27,6 +28,7 @@ const gradients = [
 
 export default function RJobUI({ jobs }) {
   const { user } = useUser();
+  const router = useRouter();
 
   if (!user) {
     return (
@@ -47,6 +49,10 @@ export default function RJobUI({ jobs }) {
       alert(message);
     }
   }
+
+  const handelEditJob = (jobId) => {
+    router.push(`/${userId}/jobs/${jobId}/update`);
+  };
 
   return (
     <>
@@ -151,7 +157,10 @@ export default function RJobUI({ jobs }) {
                 </div>
                 <div className="flex justify-between items-center mt-4">
                   <span className="text-2xl font-bold">${job.salary}/hr</span>
-                  <button className="bg-gradient-to-tr from-yellow-500 to-orange-500 text-white rounded-full py-2 px-6 text-sm font-medium hover:bg-opacity-90 transition-colors hover:shadow-lg hover:scale-105 transform duration-200">
+                  <button
+                    className="bg-gradient-to-tr from-yellow-500 to-orange-500 text-white rounded-full py-2 px-6 text-sm font-medium hover:bg-opacity-90 transition-colors hover:shadow-lg hover:scale-105 transform duration-200"
+                    onClick={() => handelEditJob(job._id)}
+                  >
                     {role === "recruiter" ? "Edit Now" : "Apply Now"}
                   </button>
                 </div>
