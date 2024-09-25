@@ -70,10 +70,50 @@ export async function deleteRJob(jobId, userId) {
   }
 }
 
+//fetch single job listing data first before updating
+export async function fetchSingleJob(jobId) {
+  try {
+    await createConnection();
+
+    // Fetch single job from the database
+    const job = await Job.findOne({ _id: jobId });
+
+    if (job) {
+      return {
+        status: "success",
+        data: JSON.parse(JSON.stringify(job)),
+      };
+    } else {
+      return {
+        status: "error",
+        message: "Failed to fetch job",
+      };
+    }
+  } catch (error) {
+    console.log(error);
+    return {
+      status: "error",
+      message: "Failed to fetch job",
+    };
+  }
+}
+
+//update job data by recurtor
 export async function updateRJob(jobId, userId, formData) {
   try {
     // Ensure the MongoDB connection is established
     await createConnection();
+
+    if (!formData) {
+      return {
+        status: "error",
+        message: "Please fill out all the fields",
+      };
+    }
+
+    // Map 'skills' to 'skillsRequired'
+    formData.skillsRequired = formData.skills;
+    delete formData.skills;
 
     // Fetch all jobs from the database
     const job = await Job.findOne({ _id: jobId });
