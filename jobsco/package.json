@@ -22,6 +22,7 @@
     "@reduxjs/toolkit": "^2.2.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "firebase": "^10.13.2",
     "framer-motion": "^11.5.5",
     "lucide-react": "^0.441.0",
     "mongoose": "^8.6.3",
