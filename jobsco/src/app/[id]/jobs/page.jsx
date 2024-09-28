@@ -1,5 +1,5 @@
 import RJobUI from "@/components/Recutor-Listed-JobUI/RJobUI";
-import { fetchRJobs } from "@/actions/fetch-Rjobs";
+import { fetchRJobs } from "@/actions/Job-Action-By-Recurtor";
 import { auth } from "@clerk/nextjs/server";
 
 async function Page() {
