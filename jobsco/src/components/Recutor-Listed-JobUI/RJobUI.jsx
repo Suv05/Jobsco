@@ -1,7 +1,7 @@
 "use client";
 
 //delete action
-import { deleteRJob } from "@/actions/fetch-Rjobs";
+import { deleteRJob } from "@/actions/Job-Action-By-Recurtor";
 
 import Spinner from "@/app/loading";
 import { useUser } from "@clerk/nextjs";
