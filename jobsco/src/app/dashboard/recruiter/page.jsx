@@ -1,5 +1,5 @@
 import { currentUser } from "@clerk/nextjs/server";
-import { fetchRecuterInfo } from "@/actions/fetchInfo-action";
+import { fetchRecuterInfo } from "@/actions/Fetch-R&C-Info-Action";
 import Link from "next/link";
 import RecutorProfileCard from "@/components/Info-card/RecutorProfileCard";
 import {
@@ -21,7 +21,7 @@ import {
   Plus,
   ArrowRight,
 } from "lucide-react";
-import { fetchRJobs } from "@/actions/fetch-Rjobs";
+import { fetchRJobs } from "@/actions/Job-Action-By-Recurtor";
 
 async function RecruiterDashboard() {
   const user = await currentUser();
