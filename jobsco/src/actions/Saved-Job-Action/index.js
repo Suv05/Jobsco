@@ -19,8 +19,9 @@ export async function saveJob(jobId, userId) {
       };
     } else {
       // Convert jobId to ObjectId if necessary
-      const job = await Job.findOne({ _id: new mongoose.Types.ObjectId(jobId) });
-
+      const job = await Job.findOne({
+        _id: new mongoose.Types.ObjectId(jobId),
+      });
 
       if (!job) {
         return {
@@ -106,7 +107,29 @@ export async function checkIfJobIsSaved(jobId, userId) {
   }
 }
 
+//count saved document by user
+export async function countSavedJobs(userId) {
+  try {
+    await createConnection();
+    const savedJobs = await SavedJobs.countDocuments({ userId });
 
-export async function countSavedJobs(){
-  
+    if (savedJobs) {
+      return {
+        status: "success",
+        message: "Count of saved jobs fetched successfully",
+        data: JSON.stringify(JSON.parse(savedJobs)),
+      };
+    } else {
+      return {
+        status: "error",
+        message: "An error occurred while counting saved jobs",
+      };
+    }
+  } catch (error) {
+    console.log(error);
+    return {
+      status: "error",
+      message: "An error occurred while counting saved jobs",
+    };
+  }
 }
