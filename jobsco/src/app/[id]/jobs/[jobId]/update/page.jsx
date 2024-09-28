@@ -1,5 +1,5 @@
 import Updateform from "@/components/update-form/Updateform";
-import { fetchSingleJob } from "@/actions/fetch-Rjobs";
+import { fetchSingleJob } from "@/actions/Job-Action-By-Recurtor";
 
 async function page({ params }) {
   const jobId = params.jobId;
