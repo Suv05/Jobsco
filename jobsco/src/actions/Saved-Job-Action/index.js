@@ -67,11 +67,27 @@ export async function saveJob(jobId, userId) {
 export async function getAllSavedJobs(userId) {
   try {
     await createConnection();
+
+    //find all saved job for the user
     const savedJobs = await SavedJobs.find({ userId });
+
+    if (!savedJobs || savedJobs.length === 0) {
+      return {
+        status: "error",
+        message: "No saved jobs found for the user",
+      };
+    }
+
+    // Use Promise.all to fetch all jobs details in parallel
+    const jobDetails = await Promise.all(
+      savedJobs.map(async (item) => {
+        return Job.findById(new mongoose.Types.ObjectId(item.jobId));
+      })
+    );
+    
     return {
       status: "success",
-      message: "All saved jobs fetched successfully",
-      data: JSON.stringify(JSON.parse(savedJobs)),
+      data: jobDetails, // return the array of job objects directly
     };
   } catch (error) {
     console.log(error);
