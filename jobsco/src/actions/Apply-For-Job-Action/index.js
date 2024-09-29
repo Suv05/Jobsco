@@ -4,6 +4,7 @@ import createConnection from "@/db";
 import AppliedJob from "@/models/appliedJob.model.js";
 import Candidate from "@/models/candidate.model";
 import Job from "@/models/job.model";
+import mongoose from "mongoose";
 import { revalidatePath } from "next/cache";
 
 export async function applyForJob(jobId, userId, data) {
@@ -112,6 +113,73 @@ export async function totalNumberOfAppliedJobs(userId) {
       status: "error",
       message:
         "An error occurred while checking if you have applied for the job",
+    };
+  }
+}
+
+//fetch all applied jobs for a user
+export async function fetchAllAppliedJobs(userId) {
+  try {
+    await createConnection();
+
+    const appliedJobs = await AppliedJob.find({ userId }).lean();
+
+    if (!appliedJobs || appliedJobs.length === 0) {
+      return {
+        status: "error",
+        message: "No applied jobs found for the user",
+      };
+    }
+
+    // Fetch all job details based on applied jobs
+    const allAppliedJobs = await Promise.all(
+      appliedJobs.map(async (item) => {
+        const job = await Job.findById(
+          new mongoose.Types.ObjectId(item.jobId)
+        ).lean(); // Convert Mongoose doc to plain JS object
+        return job;
+      })
+    );
+
+    return {
+      status: "success",
+      data: allAppliedJobs, // Pass plain JS objects
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      status: "error",
+      message: "An error occurred while fetching all applied jobs",
+    };
+  }
+}
+
+//fetch status of  applied job by user
+export async function fetchStatusOfAppliedJob(jobId, userId) {
+  try {
+    await createConnection();
+
+    //Fetch applied job from userId
+    const appliedJob = await AppliedJob.findOne({ jobId, userId });
+
+    if (!appliedJob) {
+      return {
+        status: "error",
+        message: "Applied job not found",
+      };
+    }
+
+    const status = appliedJob.status;
+
+    return {
+      status: "success",
+      data: status,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      status: "error",
+      message: "An error occurred while fetching status of applied job",
     };
   }
 }
