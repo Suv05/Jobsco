@@ -1,3 +1,5 @@
+"use client";
+
 import {
   MapPin,
   Phone,
@@ -6,14 +8,26 @@ import {
   GraduationCap,
   Search,
   Plus,
-  ArrowRight
+  ArrowRight,
 } from "lucide-react";
 import Link from "next/link";
+import { useUser } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useRouter } from "next/navigation";
 
 const CDashboard = ({ candidateInfo, totalJobs, savedJobs }) => {
+  const router = useRouter();
+  const handleUpdateProfile = () => {
+    router.push(`/dashboard/candidate/update-profile/${candidateInfo?.userId}`);
+  };
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100 px-4 py-8">
       <main className="max-w-7xl mx-auto">
@@ -22,7 +36,7 @@ const CDashboard = ({ candidateInfo, totalJobs, savedJobs }) => {
             Welcome back, {candidateInfo?.fullName}
           </h1>
           <p className="mt-2 text-xl text-gray-400">
-            Let's find your dream {candidateInfo?.jobPreference} today!
+            Let's find your dream {candidateInfo?.jobPreference} Job today!
           </p>
         </div>
 
@@ -35,7 +49,11 @@ const CDashboard = ({ candidateInfo, totalJobs, savedJobs }) => {
               ? "Internships"
               : "Jobs"}
           </Button>
-          <Button variant="outline" className="border-blue-600 text-blue-400 hover:bg-blue-900">
+          <Button
+            variant="outline"
+            className="border-blue-600 text-blue-400 hover:bg-blue-900"
+            onClick={handleUpdateProfile}
+          >
             <Plus className="mr-2 h-4 w-4" /> Update Profile
           </Button>
         </div>
@@ -69,8 +87,12 @@ const CDashboard = ({ candidateInfo, totalJobs, savedJobs }) => {
             </CardHeader>
             <CardContent className="mt-4">
               <div className="flex flex-wrap gap-2 capitalize">
-                {candidateInfo?.skills[0].split(",").map((skill, index) => (
-                  <Badge key={index} variant="secondary" className="bg-indigo-900 text-indigo-200">
+                {candidateInfo?.skills.map((skill, index) => (
+                  <Badge
+                    key={index}
+                    variant="secondary"
+                    className="bg-indigo-900 text-indigo-200"
+                  >
                     {skill.trim()}
                   </Badge>
                 ))}
@@ -96,6 +118,7 @@ const CDashboard = ({ candidateInfo, totalJobs, savedJobs }) => {
 };
 
 const CandidateProfileCard = ({ candidateData }) => {
+  const { user } = useUser();
   const initials = candidateData?.fullName
     .split(" ")
     .map((n) => n[0])
@@ -105,25 +128,25 @@ const CandidateProfileCard = ({ candidateData }) => {
     <Card className="max-w-md mx-auto mb-8 bg-gray-800 border-gray-700 overflow-hidden">
       <div className="bg-gradient-to-br from-blue-600 to-purple-700 px-8 pt-8 pb-10">
         <div className="flex items-center space-x-4">
-          <div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center border-4 border-gray-800 shadow-xl overflow-hidden">
-            {candidateData?.profileImage ? (
-              <img
-                src={candidateData.profileImage}
-                alt={candidateData.fullName}
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <span className="text-2xl font-bold text-gray-700">
-                {initials}
-              </span>
-            )}
+          <div className="w-24 h-20 rounded-full bg-gray-200 flex items-center justify-center border-4 border-gray-800 shadow-xl overflow-hidden">
+            <img
+              src={
+                user?.imageUrl || (
+                  <span className="text-2xl font-bold text-gray-700">
+                    {initials}
+                  </span>
+                )
+              }
+              alt={candidateData.fullName}
+              className="w-full h-full object-cover"
+            />
           </div>
           <div>
             <h2 className="text-3xl font-bold text-white">
               {candidateData?.fullName}
             </h2>
             <p className="text-blue-200 text-lg mt-1">
-              {candidateData?.degree} Student
+              {candidateData?.degree} {candidateData?.jobTitle}
             </p>
           </div>
         </div>
@@ -131,8 +154,12 @@ const CandidateProfileCard = ({ candidateData }) => {
       <CardContent className="px-8 py-6">
         <div className="space-y-4">
           <div className="flex flex-wrap gap-2">
-            {candidateData?.skills[0].split(",").map((skill, index) => (
-              <Badge key={index} variant="secondary" className="bg-blue-900 text-blue-200">
+            {candidateData?.skills.map((skill, index) => (
+              <Badge
+                key={index}
+                variant="secondary"
+                className="bg-blue-900 text-blue-200"
+              >
                 {skill.trim()}
               </Badge>
             ))}
@@ -141,10 +168,7 @@ const CandidateProfileCard = ({ candidateData }) => {
             <InfoItem icon={MapPin} text={candidateData?.location} />
             <InfoItem icon={Phone} text={candidateData?.phone} />
             <InfoItem icon={Mail} text={candidateData?.email} />
-            <InfoItem
-              icon={GraduationCap}
-              text={`${candidateData?.degree}`}
-            />
+            <InfoItem icon={GraduationCap} text={`${candidateData?.degree}`} />
             <InfoItem icon={Briefcase} text="Seeking Opportunities" />
           </div>
         </div>
@@ -165,7 +189,9 @@ const JobProfileLink = ({ totalJobs, savedJobs }) => (
     <Card className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 transition-all duration-300">
       <CardContent className="flex items-center justify-between p-6">
         <div>
-          <h3 className="text-2xl font-semibold text-white mb-2">Your Job Profile</h3>
+          <h3 className="text-2xl font-semibold text-white mb-2">
+            Your Job Profile
+          </h3>
           <p className="text-blue-200">
             {totalJobs} applied jobs • {savedJobs} saved jobs
           </p>

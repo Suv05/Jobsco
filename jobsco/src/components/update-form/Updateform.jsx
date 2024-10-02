@@ -112,8 +112,6 @@ export default function UpdateForm({ fetchData }) {
   const { user } = useSelector((state) => state.user);
   const router = useRouter();
 
-  console.log(fetchData);
-
   const {
     register,
     handleSubmit,
@@ -152,7 +150,6 @@ export default function UpdateForm({ fetchData }) {
     };
 
     await updateRJob(jobId, userId, formData);
-    console.log("sucess");
     router.push(`/${user}/jobs`);
   }
 
