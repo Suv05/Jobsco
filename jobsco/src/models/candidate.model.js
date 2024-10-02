@@ -32,14 +32,12 @@ const CandidateSchema = new Schema({
       value.charAt(0).toUpperCase() + value.slice(1).toLowerCase(),
   },
   graduationYear: {
-    type: Number,
+    type: String,
     required: true,
-    maxlength: 4,
     trim: true,
   },
   email: {
     type: String,
-    unique: true,
     minLength: 10,
     required: [true, "Please provide your email"],
     lowercase: true,
@@ -47,6 +45,10 @@ const CandidateSchema = new Schema({
       /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
       "Enter a valid email address",
     ],
+  },
+  jobTitle: {
+    type: String,
+    required: [true, "Job title is required"],
   },
   location: {
     type: String,
