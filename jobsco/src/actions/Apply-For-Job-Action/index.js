@@ -183,3 +183,30 @@ export async function fetchStatusOfAppliedJob(jobId, userId) {
     };
   }
 }
+
+export async function fetchNumberOfApplicants(jobId) {
+  try {
+    await createConnection();
+
+    // Fetch number of applications for the jobId
+    const numberOfApplications = await AppliedJob.countDocuments({ jobId });
+
+    if (!numberOfApplications) {
+      return {
+        status: "error",
+        message: "No applications found",
+      };
+    }
+
+    return {
+      status: "success",
+      data: numberOfApplications, // Return the raw number
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      status: "error",
+      message: "An error occurred while fetching the number of applicants",
+    };
+  }
+}
