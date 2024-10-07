@@ -1,5 +1,5 @@
 import RJobUI from "@/components/Recutor-Listed-JobUI/RJobUI";
-import { fetchRJobs } from "@/actions/Job-Action-By-Recurtor";
+import { fetchRJobs, fetchAppliedCandidates } from "@/actions/Job-Action-By-Recurtor";
 import { auth } from "@clerk/nextjs/server";
 
 async function Page() {
@@ -7,9 +7,17 @@ async function Page() {
 
   const { data: jobs } = await fetchRJobs(userId);
 
+  // Fetch applied candidates for each job
+  const jobsWithCandidates = await Promise.all(
+    jobs.map(async (job) => {
+      const { data: candidates } = await fetchAppliedCandidates(userId, job._id);
+      return { ...job, candidates };
+    })
+  );
+
   return (
     <>
-      <RJobUI jobs={jobs} />
+      <RJobUI jobs={jobsWithCandidates} />
     </>
   );
 }
