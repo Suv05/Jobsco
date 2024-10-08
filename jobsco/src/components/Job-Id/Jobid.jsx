@@ -100,164 +100,164 @@ export default function Jobid({ jobData, isAlreadyApplied }) {
 
   return (
     <>
-      <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden"
-        >
-          <div className="md:flex">
-            <div className="md:shrink-0 bg-blue-500 p-6 flex items-center justify-center">
-              <img
-                className="h-20 w-20 object-contain"
-                src={jobData.companyLogo}
-                alt={jobData.company}
-              />
+      <div className="min-h-screen bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="max-w-4xl mx-auto bg-gray-800 rounded-xl shadow-md overflow-hidden"
+      >
+        <div className="md:flex">
+          <div className="md:shrink-0 bg-blue-600 p-6 flex items-center justify-center">
+            <img
+              className="h-20 w-20 object-contain"
+              src={jobData.companyLogo}
+              alt={jobData.company}
+            />
+          </div>
+          <div className="p-8">
+            <div className="uppercase tracking-wide text-lg text-blue-400 font-semibold mb-1">
+              {jobData.company}
             </div>
-            <div className="p-8">
-              <div className="uppercase tracking-wide text-lg text-blue-500 font-semibold mb-1">
-                {jobData.company}
+            <h1 className="text-3xl font-light text-gray-100 mb-2">
+              {jobData.title}
+            </h1>
+            <div className="flex flex-wrap gap-4 text-sm text-gray-300 mb-6">
+              <div className="flex items-center">
+                <MapPin className="h-4 w-4 mr-1 capitalize" />
+                {jobData.location}
               </div>
-              <h1 className="text-3xl font-light text-gray-900 mb-2">
-                {jobData.title}
-              </h1>
-              <div className="flex flex-wrap gap-4 text-sm text-gray-600 mb-6">
+              <div className="flex items-center">
+                <Briefcase className="h-4 w-4 mr-1 capitalize" />
+                {jobData.jobType}
+              </div>
+              <div className="flex items-center">
+                <Calendar className="h-4 w-4 mr-1" />
+                {new Date(jobData.applicationDeadline).toLocaleDateString()}
+              </div>
+            </div>
+            <p className="mt-2 text-gray-300">{jobData.description}</p>
+            <div className="mt-6">
+              <h2 className="text-xl font-semibold text-gray-100 mb-2">
+                Job Details
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex items-center">
-                  <MapPin className="h-4 w-4 mr-1 capitalize" />
-                  {jobData.location}
+                  <Clock className="h-5 w-5 mr-2 text-blue-400" />
+                  <span className="text-gray-300 capitalize">
+                    Experience: {jobData.experienceLevel}
+                  </span>
                 </div>
                 <div className="flex items-center">
-                  <Briefcase className="h-4 w-4 mr-1 capitalize" />
-                  {jobData.jobType}
+                  <GraduationCap className="h-5 w-5 mr-2 text-blue-400" />
+                  <span className="text-gray-300 capitalize">
+                    Education: {jobData.educationRequirements}
+                  </span>
                 </div>
                 <div className="flex items-center">
-                  <Calendar className="h-4 w-4 mr-1" />
-                  {new Date(jobData.applicationDeadline).toLocaleDateString()}
+                  <Mail className="h-5 w-5 mr-2 text-blue-400" />
+                  <span className="text-gray-300">
+                    Contact: {jobData.contactEmail}
+                  </span>
+                </div>
+                <div className="flex items-center">
+                  <Briefcase className="h-5 w-5 mr-2 text-blue-400" />
+                  <span className="text-gray-300 capitalize">
+                    Industry: {jobData.industry}
+                  </span>
                 </div>
               </div>
-              <p className="mt-2 text-gray-700">{jobData.description}</p>
-              <div className="mt-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-2">
-                  Job Details
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex items-center">
-                    <Clock className="h-5 w-5 mr-2 text-blue-500" />
-                    <span className="text-gray-700 capitalize">
-                      Experience: {jobData.experienceLevel}
-                    </span>
-                  </div>
-                  <div className="flex items-center">
-                    <GraduationCap className="h-5 w-5 mr-2 text-blue-500" />
-                    <span className="text-gray-700 capitalize">
-                      Education: {jobData.educationRequirements}
-                    </span>
-                  </div>
-                  <div className="flex items-center">
-                    <Mail className="h-5 w-5 mr-2 text-blue-500" />
-                    <span className="text-gray-700">
-                      Contact: {jobData.contactEmail}
-                    </span>
-                  </div>
-                  <div className="flex items-center">
-                    <Briefcase className="h-5 w-5 mr-2 text-blue-500" />
-                    <span className="text-gray-700 capitalize">
-                      Industry: {jobData.industry}
-                    </span>
-                  </div>
-                </div>
+            </div>
+            <div className="mt-6">
+              <h2 className="text-xl font-semibold text-gray-100 mb-2">
+                Required Skills
+              </h2>
+              <div className="flex flex-wrap gap-2">
+                {jobData.skillsRequired.map((skill, index) => (
+                  <span
+                    key={index}
+                    className="bg-blue-900 text-blue-200 text-sm font-medium px-2.5 py-0.5 rounded-md capitalize"
+                  >
+                    {skill}
+                  </span>
+                ))}
               </div>
-              <div className="mt-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-2">
-                  Required Skills
-                </h2>
-                <div className="flex flex-wrap gap-2">
-                  {jobData.skillsRequired.map((skill, index) => (
-                    <span
-                      key={index}
-                      className="bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-0.5 rounded-md capitalize"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div className="mt-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-2">
-                  Benefits
-                </h2>
-                <ul className="list-disc list-inside text-gray-700 capitalize">
-                  {jobData.benefits.map((benefit, index) => (
-                    <li key={index}>{benefit}</li>
-                  ))}
-                </ul>
-              </div>
-              <div className="mt-8 flex flex-col sm:flex-row gap-4">
-                <button
-                  onClick={handleApply}
-                  className={`px-6 py-2 rounded-md text-white font-semibold transition-colors duration-300 ${
-                    isApplied || isAlreadyApplied === "success"
-                      ? "bg-green-500 hover:bg-green-600"
-                      : "bg-blue-500 hover:bg-blue-600"
-                  }`}
-                  disabled={!selectedFile}
-                >
-                  {isApplied || isAlreadyApplied === "success" ? (
-                    <span className="flex items-center justify-center">
+            </div>
+            <div className="mt-6">
+              <h2 className="text-xl font-semibold text-gray-100 mb-2">
+                Benefits
+              </h2>
+              <ul className="list-disc list-inside text-gray-300 capitalize">
+                {jobData.benefits.map((benefit, index) => (
+                  <li key={index}>{benefit}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="mt-8 flex flex-col sm:flex-row gap-4">
+              <button
+                onClick={handleApply}
+                className={`px-6 py-2 rounded-md text-white font-semibold transition-colors duration-300 ${
+                  isApplied || isAlreadyApplied === "success"
+                    ? "bg-green-600 hover:bg-green-700"
+                    : "bg-blue-600 hover:bg-blue-700"
+                }`}
+                disabled={!selectedFile}
+              >
+                {isApplied || isAlreadyApplied === "success" ? (
+                  <span className="flex items-center justify-center">
+                    <img
+                      src="/check.png"
+                      alt="check"
+                      className="mr-2 h-5 w-5"
+                    />
+                    Applied
+                  </span>
+                ) : (
+                  "Apply Now"
+                )}
+              </button>
+              {isAlreadyApplied === "success" ? (
+                ""
+              ) : (
+                <label className="flex items-center justify-center px-6 py-2 bg-gray-700 text-gray-200 rounded-md cursor-pointer hover:bg-gray-600 transition-colors duration-300">
+                  <Upload className="h-5 w-5 mr-2" />
+                  {selectedFile ? (
+                    <>
+                      <p> Uploaded Successfully</p>
                       <img
                         src="/check.png"
                         alt="check"
-                        className="mr-2 h-5 w-5"
+                        className="ml-2 h-5 w-5"
                       />
-                      Applied
-                    </span>
+                    </>
                   ) : (
-                    "Apply Now"
+                    "Upload Resume"
                   )}
-                </button>
-                {isAlreadyApplied === "success" ? (
-                  ""
-                ) : (
-                  <label className="flex items-center justify-center px-6 py-2 bg-gray-200 text-gray-700 rounded-md cursor-pointer hover:bg-gray-300 transition-colors duration-300">
-                    <Upload className="h-5 w-5 mr-2" />
-                    {selectedFile ? (
-                      <>
-                        <p> Uploaded Successfuly</p>
-                        <img
-                          src="/check.png"
-                          alt="check"
-                          className="ml-2 h-5 w-5"
-                        />
-                      </>
-                    ) : (
-                      "Upload Resume"
-                    )}
-                    <input
-                      type="file"
-                      className="hidden"
-                      onChange={handleFileChange}
-                      accept=".pdf,.doc,.docx"
-                    />
-                  </label>
-                )}
-
-                {/* Progress Bar */}
-                <Progress filePrec={filePrec} />
-              </div>
-              {isAlreadyApplied === "success" ? (
-                <p className="text-xs text-green-500 mt-2">
-                  You have already applied for this job
-                </p>
-              ) : (
-                <p className="text-xs text-red-500 mt-2">
-                  Note: Upload your resume before applying
-                </p>
+                  <input
+                    type="file"
+                    className="hidden"
+                    onChange={handleFileChange}
+                    accept=".pdf,.doc,.docx"
+                  />
+                </label>
               )}
+
+              {/* Progress Bar */}
+              <Progress filePrec={filePrec} />
             </div>
+            {isAlreadyApplied === "success" ? (
+              <p className="text-xs text-green-400 mt-2">
+                You have already applied for this job
+              </p>
+            ) : (
+              <p className="text-xs text-red-400 mt-2">
+                Note: Upload your resume before applying
+              </p>
+            )}
           </div>
-        </motion.div>
-      </div>
+        </div>
+      </motion.div>
+    </div>
     </>
   );
 }
