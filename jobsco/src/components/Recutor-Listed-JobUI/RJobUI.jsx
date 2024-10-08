@@ -1,5 +1,6 @@
 "use client";
 
+import { updateStatus } from "@/actions/Job-Action-By-Recurtor";
 import Spinner from "@/app/loading";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
@@ -59,8 +60,19 @@ export default function RecruiterJobsPage({ jobs }) {
   };
 
   async function handleStatusChange(jobId, candidateId, value) {
-    console.log(jobId, candidateId, value);
     //call api here to update status
+
+    const { status, message } = await updateStatus(
+      jobId,
+      candidateId,
+      userId,
+      value
+    );
+    if (status === "success") {
+      alert(message);
+    } else {
+      alert(message);
+    }
   }
 
   return (

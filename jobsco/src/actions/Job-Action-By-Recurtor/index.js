@@ -170,3 +170,47 @@ export async function fetchAppliedCandidates(recurtorId, jobId) {
     };
   }
 }
+
+//now we have to create a action where recurtor will update the candidate's status
+export async function updateStatus(jobId, candidateId, recurtorId, value) {
+  try {
+    await createConnection();
+
+    const appliedJobDetails = await AppliedJob.findOne({
+      jobId,
+      userId: candidateId,
+      recurtorId,
+    });
+
+    if (!appliedJobDetails) {
+      return {
+        status: "error",
+        message: "Applied job details not found",
+      };
+    }
+
+    const updateJobStatus = await AppliedJob.updateOne(
+      { jobId, userId: candidateId, recurtorId },
+      { $set: { status: value } }
+    );
+
+    if (updateJobStatus.modifiedCount === 0) {
+      return {
+        status: "error",
+        message: "Failed to update job status",
+      };
+    }
+
+    revalidatePath(`/${recurtorId}/jobs`);
+    return {
+      status: "success",
+      message: "Job status updated successfully",
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      status: "error",
+      message: "Failed to update job status",
+    };
+  }
+}
