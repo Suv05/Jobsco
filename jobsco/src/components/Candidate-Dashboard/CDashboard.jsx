@@ -23,7 +23,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { useRouter } from "next/navigation";
 
-const CDashboard = ({ candidateInfo, totalJobs, savedJobs }) => {
+const CDashboard = ({ candidateInfo, totalJobs, savedJobs, isPro }) => {
   const router = useRouter();
   const handleUpdateProfile = () => {
     router.push(`/dashboard/candidate/update-profile/${candidateInfo?.userId}`);
@@ -40,7 +40,7 @@ const CDashboard = ({ candidateInfo, totalJobs, savedJobs }) => {
           </p>
         </div>
 
-        <CandidateProfileCard candidateData={candidateInfo} />
+        <CandidateProfileCard candidateData={candidateInfo} isPro={isPro} />
 
         <div className="mb-8 flex space-x-4">
           <Button className="bg-blue-600 hover:bg-blue-700">
@@ -117,7 +117,7 @@ const CDashboard = ({ candidateInfo, totalJobs, savedJobs }) => {
   );
 };
 
-const CandidateProfileCard = ({ candidateData }) => {
+const CandidateProfileCard = ({ candidateData,isPro }) => {
   const { user } = useUser();
   const initials = candidateData?.fullName
     .split(" ")
@@ -142,8 +142,15 @@ const CandidateProfileCard = ({ candidateData }) => {
             />
           </div>
           <div>
-            <h2 className="text-3xl font-bold text-white">
-              {candidateData?.fullName}
+            <h2 className="flex items-center text-3xl font-bold text-white">
+              {candidateData?.fullName}{" "}
+              {isPro === "success" ? (
+                <Badge variant="primary" className={`ml-1 bg-amber-400`}>
+                  Premium
+                </Badge>
+              ) : (
+                ""
+              )}
             </h2>
             <p className="text-blue-200 text-lg mt-1">
               {candidateData?.degree} {candidateData?.jobTitle}
