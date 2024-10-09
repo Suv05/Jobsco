@@ -10,6 +10,10 @@ const primiumUserSchema = new Schema({
     type: String,
     required: true,
   },
+  role: {
+    type: String,
+    required: true,
+  },
 });
 
 const PrimiumUser =
