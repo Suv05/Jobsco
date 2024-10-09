@@ -50,10 +50,10 @@ export default function MenuUi({ toggleMenu }) {
                 Find Jobs
               </Link>
               <Link
-                href="/companies"
+                href="/pricing"
                 className="text-base text-gray-300 hover:text-gray-100"
               >
-                Companies
+                Try Premium
               </Link>
               <Link
                 href="/resources"
