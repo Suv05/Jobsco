@@ -137,7 +137,7 @@ const CandidateProfileCard = ({ candidateData,isPro }) => {
                   </span>
                 )
               }
-              alt={candidateData.fullName}
+              alt={candidateData?.fullName}
               className="w-full h-full object-cover"
             />
           </div>
