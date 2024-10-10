@@ -29,16 +29,19 @@ async function Page() {
   const { data: savedJobsByUser } = await getAllSavedJobs(userId);
   const { data: appliedJobs } = await fetchAllAppliedJobs(userId);
 
-  // Fetch the status for each applied job
-  const appliedJobsWithStatus = await Promise.all(
-    appliedJobs.map(async (job) => {
-      const statusRes = await fetchStatusOfAppliedJob(job._id, userId);
-      return {
-        ...job,
-        status: statusRes.data || "Unknown",
-      };
-    })
-  );
+  // Check if appliedJobs exists and is an array before proceeding
+  const appliedJobsWithStatus =
+    appliedJobs && appliedJobs.length > 0
+      ? await Promise.all(
+          appliedJobs.map(async (job) => {
+            const statusRes = await fetchStatusOfAppliedJob(job._id, userId);
+            return {
+              ...job,
+              status: statusRes.data || "Unknown",
+            };
+          })
+        )
+      : []; // If no jobs have been applied for, return an empty array
 
   return (
     <>
