@@ -16,7 +16,7 @@ import { Plus, Search, ArrowRight } from "lucide-react";
 
 import RecruiterProfileCard from "../Info-card/RecutorProfileCard.jsx";
 
-export default function RDashboard({ recruiterInfo, recruiterJobInfo }) {
+export default function RDashboard({ recruiterInfo, recruiterJobInfo,isPro }) {
   const { user } = useUser();
   return (
     <>
@@ -28,7 +28,7 @@ export default function RDashboard({ recruiterInfo, recruiterJobInfo }) {
             </h1>
           </div>
 
-          <RecruiterProfileCard recruiterData={recruiterInfo} />
+          <RecruiterProfileCard recruiterData={recruiterInfo} isPro={isPro} />
 
           <div className="mb-8 flex space-x-4">
             <Link href="/post-job">
