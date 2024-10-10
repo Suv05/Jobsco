@@ -30,7 +30,7 @@ export default function JobProfile({
   appliedJobs,
 }) {
   const [activeTab, setActiveTab] = useState("applied");
-  const {user} = useUser();
+  const { user } = useUser();
 
   const stats = [
     {
@@ -85,7 +85,7 @@ export default function JobProfile({
               {userDetails?.fullName}
             </h1>
             <p className="text-xl text-gray-300 mt-1">
-              Senior Frontend Developer
+              {userDetails?.jobTitle}
             </p>
             <div className="flex items-center mt-2 text-sm text-gray-400">
               <Mail className="w-4 h-4 mr-1 text-blue-400" />
@@ -166,7 +166,9 @@ export default function JobProfile({
                     <JobCard key={job._id} job={job} type="applied" />
                   ))
                 ) : (
-                  <p>No jobs applied</p>
+                  <p className="text-center text-white text-lg">
+                    😯 No Applied Jobs
+                  </p>
                 )}
               </TabsContent>
               <TabsContent value="saved" className="p-4 space-y-4">
@@ -175,7 +177,9 @@ export default function JobProfile({
                     <JobCard key={job._id} job={job} type="saved" />
                   ))
                 ) : (
-                  <p>No saved Jobs</p>
+                  <p className="text-center text-white text-lg">
+                    🙄 No Saved Jobs
+                  </p>
                 )}
               </TabsContent>
             </Tabs>
