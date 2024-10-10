@@ -65,33 +65,32 @@ export default function Homepage({ jobs }) {
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-purple-900 to-indigo-900 text-white py-20">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl font-extrabold sm:text-5xl md:text-6xl">
-              Find Your Dream Job
-            </h1>
-            <p className="mt-3 max-w-md mx-auto text-xl sm:text-2xl md:mt-5 md:max-w-3xl">
-              Discover opportunities that match your skills and aspirations.
-            </p>
-            <div className="mt-10 flex justify-center">
-              <div className="mt-3 sm:mt-0 sm:ml-3 relative rounded-md shadow-sm w-full max-w-xl">
-                <Input
-                  type="text"
-                  placeholder="Search jobs..."
-                  className="pl-10 pr-4 py-3 w-full text-gray-100 bg-gray-800 border-gray-700 focus:ring-indigo-500 focus:border-indigo-500"
-                />
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Search className="h-5 w-5 text-gray-400" />
-                </div>
-              </div>
-              <Button className="ml-3 bg-indigo-600 text-white hover:bg-indigo-700">
-                Search
-              </Button>
+      <div className="bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900 text-white p-8 min-h-screen flex flex-col justify-center">
+        <h1 className="text-5xl font-bold text-center mb-4 text-purple-200">
+          Find Your Dream Job
+        </h1>
+        <p className="text-xl text-center mb-8 text-purple-100">
+          Discover opportunities that match your skills and aspirations.
+        </p>
+        <div className="flex flex-col sm:flex-row justify-center items-stretch gap-3 max-w-xl mx-auto">
+          <div className="relative flex-grow">
+            <Input
+              type="text"
+              placeholder="Search jobs..."
+              className="pl-10 pr-4 py-3 w-full text-gray-200 bg-opacity-20 bg-gray-800 border-gray-700 focus:ring-purple-500 focus:border-purple-500 rounded-md placeholder-gray-400"
+            />
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Search className="h-5 w-5 text-purple-300" />
             </div>
           </div>
+          <Button
+            className="bg-purple-600 text-white hover:bg-purple-700 px-6 py-3 text-lg rounded-md transition duration-300 ease-in-out"
+            onClick={() => router.push("/jobs")}
+          >
+            Search
+          </Button>
         </div>
-      </section>
+      </div>
 
       {/* Job Categories Section */}
       <section className="py-16 bg-gray-800">
