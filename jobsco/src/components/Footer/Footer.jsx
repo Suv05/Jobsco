@@ -1,7 +1,12 @@
 "use client";
 
-import Link from 'next/link';
-import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
+import Link from "next/link";
+import {
+  FaFacebookF,
+  FaTwitter,
+  FaLinkedinIn,
+  FaInstagram,
+} from "react-icons/fa";
 
 export default function Footer() {
   return (
@@ -12,7 +17,8 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-4">Jobsco</h3>
             <p className="text-sm text-gray-300">
-              Connecting talented professionals with exciting career opportunities.
+              Connecting talented professionals with exciting career
+              opportunities.
             </p>
           </div>
 
@@ -20,10 +26,38 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              <li><Link href="/jobs" className="text-sm text-gray-300 hover:text-white">Find Jobs</Link></li>
-              <li><Link href="/companies" className="text-sm text-gray-300 hover:text-white">Companies</Link></li>
-              <li><Link href="/resources" className="text-sm text-gray-300 hover:text-white">Resources</Link></li>
-              <li><Link href="/about" className="text-sm text-gray-300 hover:text-white">About Us</Link></li>
+              <li>
+                <Link
+                  href="/jobs"
+                  className="text-sm text-gray-300 hover:text-white"
+                >
+                  Find Jobs
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/ask-ai"
+                  className="text-sm text-gray-300 hover:text-white"
+                >
+                  Ask AI
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/resources"
+                  className="text-sm text-gray-300 hover:text-white"
+                >
+                  Try Premium
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/pricing"
+                  className="text-sm text-gray-300 hover:text-white"
+                >
+                  About Us
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -31,17 +65,47 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-4">Support</h3>
             <ul className="space-y-2">
-              <li><Link href="/faq" className="text-sm text-gray-300 hover:text-white">FAQ</Link></li>
-              <li><Link href="/contact" className="text-sm text-gray-300 hover:text-white">Contact Us</Link></li>
-              <li><Link href="/privacy" className="text-sm text-gray-300 hover:text-white">Privacy Policy</Link></li>
-              <li><Link href="/terms" className="text-sm text-gray-300 hover:text-white">Terms of Service</Link></li>
+              <li>
+                <Link
+                  href="/about"
+                  className="text-sm text-gray-300 hover:text-white"
+                >
+                  FAQ
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/contact"
+                  className="text-sm text-gray-300 hover:text-white"
+                >
+                  Contact Us
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/terms"
+                  className="text-sm text-gray-300 hover:text-white"
+                >
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/terms"
+                  className="text-sm text-gray-300 hover:text-white"
+                >
+                  Terms of Service
+                </Link>
+              </li>
             </ul>
           </div>
 
           {/* Newsletter Signup */}
           <div>
             <h3 className="text-lg font-semibold mb-4">Stay Updated</h3>
-            <p className="text-sm text-gray-300 mb-2">Subscribe to our newsletter for the latest job opportunities.</p>
+            <p className="text-sm text-gray-300 mb-2">
+              Subscribe to our newsletter for the latest job opportunities.
+            </p>
             <form className="flex flex-col sm:flex-row gap-2">
               <input
                 type="email"
@@ -61,7 +125,9 @@ export default function Footer() {
         {/* Social Media Links */}
         <div className="mt-8 pt-8 border-t border-gray-700">
           <div className="flex justify-between items-center">
-            <p className="text-sm text-gray-300">&copy; 2024 Jobsco. All rights reserved.</p>
+            <p className="text-sm text-gray-300">
+              &copy; 2024 Jobsco. All rights reserved.
+            </p>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-300 hover:text-white">
                 <FaFacebookF className="h-5 w-5" />
