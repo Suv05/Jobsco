@@ -1,8 +1,15 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Mail, Phone, MapPin, Building, Briefcase, GraduationCap } from "lucide-react"
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Building,
+  Briefcase,
+  GraduationCap,
+} from "lucide-react";
 
-export default function RecruiterProfileCard({ recruiterData }) {
+export default function RecruiterProfileCard({ recruiterData, isPro }) {
   const initials = recruiterData?.fullName
     .split(" ")
     .map((n) => n[0])
@@ -26,8 +33,15 @@ export default function RecruiterProfileCard({ recruiterData }) {
             )}
           </div>
           <div>
-            <h2 className="text-3xl font-bold text-white">
-              {recruiterData.fullName}
+            <h2 className="flex items-center text-3xl font-bold text-white">
+              {recruiterData.fullName}{" "}
+              {isPro === "success" ? (
+                <Badge variant="primary" className={`ml-1 bg-amber-400`}>
+                  Premium
+                </Badge>
+              ) : (
+                ""
+              )}
             </h2>
             <p className="text-blue-200 text-lg mt-1">
               {recruiterData.position} at {recruiterData.companyName}
@@ -38,10 +52,7 @@ export default function RecruiterProfileCard({ recruiterData }) {
       <CardContent className="px-8 py-6">
         <div className="space-y-4">
           <div className="flex flex-wrap gap-2">
-            <Badge
-              variant="secondary"
-              className="bg-blue-900 text-blue-200"
-            >
+            <Badge variant="secondary" className="bg-blue-900 text-blue-200">
               {recruiterData.industry}
             </Badge>
             <Badge
@@ -52,12 +63,28 @@ export default function RecruiterProfileCard({ recruiterData }) {
             </Badge>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <InfoItem icon={Building} text={recruiterData.companyName} label="Company" />
-            <InfoItem icon={Briefcase} text={recruiterData.position} label="Position" />
-            <InfoItem icon={MapPin} text={recruiterData.location} label="Location" />
+            <InfoItem
+              icon={Building}
+              text={recruiterData.companyName}
+              label="Company"
+            />
+            <InfoItem
+              icon={Briefcase}
+              text={recruiterData.position}
+              label="Position"
+            />
+            <InfoItem
+              icon={MapPin}
+              text={recruiterData.location}
+              label="Location"
+            />
             <InfoItem icon={Phone} text={recruiterData.phone} label="Phone" />
             <InfoItem icon={Mail} text={recruiterData.email} label="Email" />
-            <InfoItem icon={GraduationCap} text={recruiterData.education || "Not specified"} label="Education" />
+            <InfoItem
+              icon={GraduationCap}
+              text={recruiterData.education || "Not specified"}
+              label="Education"
+            />
           </div>
         </div>
       </CardContent>
