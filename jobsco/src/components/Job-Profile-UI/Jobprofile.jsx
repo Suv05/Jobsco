@@ -7,6 +7,7 @@ import { Button } from "../ui/button";
 import { Progress } from "../ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { Badge } from "../ui/badge";
+import { useUser } from "@clerk/nextjs";
 import {
   Briefcase,
   Star,
@@ -22,27 +23,26 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 
 export default function JobProfile({
-  user,
+  userDetails,
   saved,
   applied,
   savedJobs,
   appliedJobs,
 }) {
   const [activeTab, setActiveTab] = useState("applied");
-
-  //console.log(savedJobs);
+  const {user} = useUser();
 
   const stats = [
     {
       icon: Briefcase,
       title: "Applied Jobs",
-      value: applied,
+      value: applied || 0,
       color: "from-blue-500 to-cyan-500",
     },
     {
       icon: Star,
       title: "Saved Jobs",
-      value: saved,
+      value: saved || 0,
       color: "from-purple-500 to-pink-500",
     },
     {
@@ -71,9 +71,9 @@ export default function JobProfile({
           className="flex items-center space-x-4 bg-gradient-to-r from-gray-800 to-gray-700 p-6 rounded-lg shadow-lg"
         >
           <Avatar className="h-24 w-24 border-4 border-blue-500">
-            <AvatarImage src={user?.avatar} alt={user?.fullName} />
+            <AvatarImage src={user?.imageUrl} alt={userDetails?.fullName} />
             <AvatarFallback>
-              {user.fullName
+              {userDetails?.fullName
 
                 .split(" ")
                 .map((n) => n[0])
@@ -82,18 +82,18 @@ export default function JobProfile({
           </Avatar>
           <div>
             <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
-              {user.fullName}
+              {userDetails?.fullName}
             </h1>
             <p className="text-xl text-gray-300 mt-1">
               Senior Frontend Developer
             </p>
             <div className="flex items-center mt-2 text-sm text-gray-400">
               <Mail className="w-4 h-4 mr-1 text-blue-400" />
-              {user.email}
+              {userDetails?.email}
             </div>
             <div className="flex items-center mt-2 text-sm text-gray-400">
               <MapPin className="w-4 h-4 mr-1 text-blue-400" />
-              {user.location}
+              {userDetails?.location}
             </div>
           </div>
         </motion.div>
@@ -161,14 +161,22 @@ export default function JobProfile({
                 </TabsTrigger>
               </TabsList>
               <TabsContent value="applied" className="p-4 space-y-4">
-                {appliedJobs.map((job) => (
-                  <JobCard key={job._id} job={job} type="applied" />
-                ))}
+                {appliedJobs && appliedJobs.length > 0 ? (
+                  appliedJobs.map((job) => (
+                    <JobCard key={job._id} job={job} type="applied" />
+                  ))
+                ) : (
+                  <p>No jobs applied</p>
+                )}
               </TabsContent>
               <TabsContent value="saved" className="p-4 space-y-4">
-                {savedJobs.map((job) => (
-                  <JobCard key={job._id} job={job} type="saved" />
-                ))}
+                {savedJobs && savedJobs.length > 0 ? (
+                  savedJobs.map((job) => (
+                    <JobCard key={job._id} job={job} type="saved" />
+                  ))
+                ) : (
+                  <p>No saved Jobs</p>
+                )}
               </TabsContent>
             </Tabs>
           </CardContent>
@@ -194,7 +202,14 @@ export default function JobProfile({
         {/* Recent Activity */}
         <Card className="bg-gray-800 border-gray-700">
           <CardHeader className="bg-gradient-to-r from-yellow-600 to-orange-600">
-            <CardTitle className="text-2xl">Recent Activity</CardTitle>
+            <CardTitle className="text-2xl">
+              Recent Activity{" "}
+              <span>
+                <Badge className=" bg-[#222222] text-white font-semibold text-base">
+                  Beta
+                </Badge>
+              </span>
+            </CardTitle>
           </CardHeader>
           <CardContent className="p-6">
             <div className="space-y-4">
