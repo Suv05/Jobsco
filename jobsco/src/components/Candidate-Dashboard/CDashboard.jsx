@@ -43,7 +43,10 @@ const CDashboard = ({ candidateInfo, totalJobs, savedJobs, isPro }) => {
         <CandidateProfileCard candidateData={candidateInfo} isPro={isPro} />
 
         <div className="mb-8 flex space-x-4">
-          <Button className="bg-blue-600 hover:bg-blue-700">
+          <Button
+            className="bg-blue-600 hover:bg-blue-700"
+            onClick={() => router.push("/jobs")}
+          >
             <Search className="mr-2 h-4 w-4" /> Search{" "}
             {candidateInfo?.jobPreference === "internship"
               ? "Internships"
@@ -117,7 +120,7 @@ const CDashboard = ({ candidateInfo, totalJobs, savedJobs, isPro }) => {
   );
 };
 
-const CandidateProfileCard = ({ candidateData,isPro }) => {
+const CandidateProfileCard = ({ candidateData, isPro }) => {
   const { user } = useUser();
   const initials = candidateData?.fullName
     .split(" ")
