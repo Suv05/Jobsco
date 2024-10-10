@@ -28,7 +28,7 @@ async function RootLayout({ children }) {
             <Providers>
               <div className="flex flex-col min-h-screen">
                 <Header user={userId} />
-                <main className="flex-grow">{children}</main>
+                <main className="flex-grow bg-[#323232]">{children}</main>
                 <Footer />
               </div>
             </Providers>
