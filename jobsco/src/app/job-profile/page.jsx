@@ -1,6 +1,6 @@
-import { auth } from "@clerk/nextjs/server";
-
 import JobProfile from "@/components/Job-Profile-UI/Jobprofile";
+import { auth, currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
 //actions
 import { fetchCandidateInfo } from "@/actions/Fetch-R&C-Info-Action";
@@ -13,8 +13,17 @@ import {
 
 async function Page() {
   const { userId } = auth();
+  const user = await currentUser();
 
-  const { data: user } = await fetchCandidateInfo(userId);
+  // Direct role check
+  const isCandidate = user?.unsafeMetadata?.role === "candidate";
+
+  if (!isCandidate) {
+    redirect("/");
+    return null; // Ensure to return null to avoid further processing
+  }
+
+  const { data: userDetails } = await fetchCandidateInfo(userId);
   const { data: totalSavedJobs } = await countSavedJobs(userId);
   const { data: totalJobsApplied } = await totalNumberOfAppliedJobs(userId);
   const { data: savedJobsByUser } = await getAllSavedJobs(userId);
@@ -34,7 +43,7 @@ async function Page() {
   return (
     <>
       <JobProfile
-        user={user}
+        userDetails={userDetails}
         saved={totalSavedJobs}
         applied={totalJobsApplied}
         savedJobs={savedJobsByUser}
@@ -43,4 +52,5 @@ async function Page() {
     </>
   );
 }
+
 export default Page;
