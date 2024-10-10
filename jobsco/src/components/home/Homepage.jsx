@@ -15,6 +15,7 @@ import {
 import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const cardColors = [
   "bg-[#2a2438]",
@@ -132,70 +133,81 @@ export default function Homepage({ jobs }) {
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {jobs.map((job, index) => (
-              <motion.div
-                key={job._id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
-                className={`${
-                  cardColors[index % cardColors.length]
-                } rounded-lg p-6 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1`}
-              >
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <h3 className="text-2xl text-gray-100 font-semibold mb-1 capitalize">
-                      {job.title}
-                    </h3>
-                    <p className="text-gray-300">{job.company}</p>
-                  </div>
-                  <img
-                    src={job.companyLogo}
-                    alt={job.company}
-                    className="w-12 h-12 rounded-full"
-                  />
-                </div>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {job.skillsRequired.map((tag, tagIndex) => (
-                    <span
-                      key={tagIndex}
-                      className="bg-gray-700 text-gray-300 text-sm px-2 py-1 rounded-full capitalize"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <div className="text-gray-300 text-sm space-y-2">
-                  <div className="flex items-center">
-                    <DollarSign className="w-4 h-4 mr-2" />
-                    <p className="text-lg font-semibold">${job.salary}/hr</p>
-                  </div>
-                  <div className="flex items-center">
-                    <MapPin className="w-4 h-4 mr-2" />
-                    <p>{job.location}</p>
-                  </div>
-                </div>
-                <div className="mt-6 flex justify-between items-center">
-                  <Button
-                    variant="default"
-                    className="bg-indigo-600 hover:bg-indigo-700 text-white"
-                    onClick={() => router.push(`/jobs/${job._id}`)}
+            {jobs && jobs.length > 0
+              ? jobs.map((job, index) => (
+                  <motion.div
+                    key={job._id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                    className={`${
+                      cardColors[index % cardColors.length]
+                    } rounded-lg p-6 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1`}
                   >
-                    View Details
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    className={`text-gray-300 hover:text-indigo-500 ${
-                      savedJobs[job._id] && "text-indigo-700"
-                    }`}
-                    onClick={() => handelBookMark(job._id, user)}
-                  >
-                    <BookmarkPlus size={20} />
-                  </Button>
-                </div>
-              </motion.div>
-            ))}
+                    <div className="flex justify-between items-start mb-4">
+                      <div>
+                        <h3 className="text-2xl text-gray-100 font-semibold mb-1 capitalize">
+                          {job.title}
+                        </h3>
+                        <p className="text-gray-300">{job.company}</p>
+                      </div>
+                      <img
+                        src={job.companyLogo}
+                        alt={job.company}
+                        className="w-12 h-12 rounded-full"
+                      />
+                    </div>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {job.skillsRequired.map((tag, tagIndex) => (
+                        <span
+                          key={tagIndex}
+                          className="bg-gray-700 text-gray-300 text-sm px-2 py-1 rounded-full capitalize"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="text-gray-300 text-sm space-y-2">
+                      <div className="flex items-center">
+                        <DollarSign className="w-4 h-4 mr-2" />
+                        <p className="text-lg font-semibold">
+                          ${job.salary}/hr
+                        </p>
+                      </div>
+                      <div className="flex items-center">
+                        <MapPin className="w-4 h-4 mr-2" />
+                        <p>{job.location}</p>
+                      </div>
+                    </div>
+                    <div className="mt-6 flex justify-between items-center">
+                      <Button
+                        variant="default"
+                        className="bg-indigo-600 hover:bg-indigo-700 text-white"
+                        onClick={() => router.push(`/jobs/${job._id}`)}
+                      >
+                        View Details
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        className={`text-gray-300 hover:text-indigo-500 ${
+                          savedJobs[job._id] && "text-indigo-700"
+                        }`}
+                        onClick={() => handelBookMark(job._id, user)}
+                      >
+                        <BookmarkPlus size={20} />
+                      </Button>
+                    </div>
+                  </motion.div>
+                ))
+              : null}
           </div>
+          {jobs && jobs.length > 0 ? null : (
+            <Link href="/sign-in">
+              <button className="mx-auto w-full rounded-lg text-white bg-[#D91656] py-2 px-4 font-light text-center text-lg">
+                Recommended Jobs from top companies
+              </button>
+            </Link>
+          )}
         </div>
       </section>
 
