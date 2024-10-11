@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://www.yourwebsite.com
+Host: https://jobsco-05.vercel.app/
 
 # Sitemaps
-Sitemap: https://www.yourwebsite.com/sitemap.xml
+Sitemap: https://jobsco-05.vercel.app/sitemap.xml

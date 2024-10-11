@@ -32,7 +32,7 @@ async function RootLayout({ children }) {
         />
         <meta property="og:image" content="/jobsco.png" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="" />
+        <meta property="og:url" content="https://jobsco-05.vercel.app/" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Jobsco - AI-Powered Job Search Platform" />
