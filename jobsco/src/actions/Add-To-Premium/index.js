@@ -37,8 +37,6 @@ export async function isPrimiumUser(userId) {
     const checkUser = await PrimiumUser.findOne({ userId });
 
     if (checkUser) {
-      console.log("check user from server: ", checkUser);
-
       return {
         isPro: "success",
         message: "User is a Premium User",
