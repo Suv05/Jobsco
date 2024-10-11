@@ -4,6 +4,8 @@ import { updateStatus, deleteRJob } from "@/actions/Job-Action-By-Recurtor";
 import Spinner from "@/app/loading";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+
 import {
   ChevronDown,
   MapPin,
@@ -15,7 +17,6 @@ import {
   Mail,
   FileText,
 } from "lucide-react";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -212,16 +213,20 @@ export default function RecruiterJobsPage({ jobs }) {
                               </div>
                               <div className="flex items-center">
                                 {candidate.status === "rejected" ? (
-                                  <img
+                                  <Image
                                     src="/red.png"
                                     alt="red cross"
                                     className="w-4 h-4 mr-2"
+                                    width={10}
+                                    height={10}
                                   />
                                 ) : (
-                                  <img
+                                  <Image
                                     src="/green.png"
                                     alt="green tick"
                                     className="w-4 h-4 mr-2"
+                                    width={10}
+                                    height={10}
                                   />
                                 )}
                                 <span className="mr-4 break-all text-[#ffffff]">

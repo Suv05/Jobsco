@@ -72,7 +72,7 @@ export default function OnboardPage() {
             Welcome to Jobsco 🎊
           </CardTitle>
           <CardDescription className="text-center text-blue-200">
-            Let's personalize your experience
+            Let&apos;s personalize your experience
           </CardDescription>
         </CardHeader>
         <CardContent className="p-6">

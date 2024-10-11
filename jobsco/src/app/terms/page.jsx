@@ -34,7 +34,7 @@ function TermsPage() {
         <Card className="bg-gray-800 bg-opacity-50 backdrop-blur-lg">
           <CardContent className="p-6">
             <p className="mb-6 text-gray-300">
-              Welcome to JobSco. These terms and conditions outline the rules and regulations for the use of JobSco's website and services.
+              Welcome to JobSco. These terms and conditions outline the rules and regulations for the use of JobSco&apos;s website and services.
             </p>
             
             <Accordion type="single" collapsible className="space-y-4">

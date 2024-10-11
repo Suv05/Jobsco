@@ -13,6 +13,7 @@ import {
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import {
   Card,
   CardContent,
@@ -36,7 +37,7 @@ const CDashboard = ({ candidateInfo, totalJobs, savedJobs, isPro }) => {
             Welcome back, {candidateInfo?.fullName}
           </h1>
           <p className="mt-2 text-xl text-gray-400">
-            Let's find your dream {candidateInfo?.jobPreference} Job today!
+            Let&apos;s find your dream {candidateInfo?.jobPreference} Job today!
           </p>
         </div>
 
@@ -132,17 +133,19 @@ const CandidateProfileCard = ({ candidateData, isPro }) => {
       <div className="bg-gradient-to-br from-blue-600 to-purple-700 px-8 pt-8 pb-10">
         <div className="flex items-center space-x-4">
           <div className="w-24 h-20 rounded-full bg-gray-200 flex items-center justify-center border-4 border-gray-800 shadow-xl overflow-hidden">
-            <img
-              src={
-                user?.imageUrl || (
-                  <span className="text-2xl font-bold text-gray-700">
-                    {initials}
-                  </span>
-                )
-              }
-              alt={candidateData?.fullName}
-              className="w-full h-full object-cover"
-            />
+            {user?.imageUrl ? (
+              <Image
+                src={user?.imageUrl}
+                alt={candidateData?.fullName || "User"}
+                className="w-full h-full object-cover"
+                width={500} // Adjust the width to your preference
+                height={500} // Adjust the height to your preference
+              />
+            ) : (
+              <span className="text-2xl font-bold text-gray-700">
+                {initials}
+              </span>
+            )}
           </div>
           <div>
             <h2 className="flex items-center text-3xl font-bold text-white">

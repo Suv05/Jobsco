@@ -152,7 +152,7 @@ export default function CandidateinfoUpdate({ candidateInfo }) {
             Complete Your Candidate Profile
           </CardTitle>
           <CardDescription className="text-lg text-gray-300">
-            Let's showcase your skills and experience
+            Let&apos;s showcase your skills and experience
           </CardDescription>
         </CardHeader>
         <CardContent>

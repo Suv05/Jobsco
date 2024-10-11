@@ -12,21 +12,25 @@ export default function Header({ user }) {
   const [isMobile, setIsMobile] = useState(false);
   const dispatch = useDispatch();
 
+  // Dispatch user info to Redux store
   useEffect(() => {
     if (user) {
       dispatch(setUser(user));
     }
-  }, [user]);
+  }, [user, dispatch]); // Add 'dispatch' to the dependency array
 
+  // Handle mobile screen size
   useEffect(() => {
     const checkIsMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
     checkIsMobile();
     window.addEventListener("resize", checkIsMobile);
+
     return () => window.removeEventListener("resize", checkIsMobile);
   }, []);
 
+  // Toggle menu open/close
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
     if (!isMenuOpen) {

@@ -1,5 +1,9 @@
+"use client";
+
+import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useUser } from "@clerk/nextjs";
 import {
   Mail,
   Phone,
@@ -10,6 +14,8 @@ import {
 } from "lucide-react";
 
 export default function RecruiterProfileCard({ recruiterData, isPro }) {
+  const { user } = useUser();
+
   const initials = recruiterData?.fullName
     .split(" ")
     .map((n) => n[0])
@@ -21,10 +27,12 @@ export default function RecruiterProfileCard({ recruiterData, isPro }) {
         <div className="flex items-center space-x-4">
           <div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center border-4 border-gray-800 shadow-xl overflow-hidden">
             {recruiterData.imageUrl ? (
-              <img
-                src={recruiterData.imageUrl}
+              <Image
+                src={user?.imageUrl}
                 alt={recruiterData.fullName}
                 className="w-full h-full object-cover"
+                width={500} // Adjust the width to your preference
+                height={500} // Adjust the height to your preference
               />
             ) : (
               <span className="text-2xl font-bold text-gray-700">

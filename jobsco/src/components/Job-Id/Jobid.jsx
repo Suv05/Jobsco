@@ -3,6 +3,7 @@
 //react and animation
 import { useState, useRef } from "react";
 import { useSelector } from "react-redux";
+import Image from "next/image.js";
 import { motion } from "framer-motion";
 
 //icons
@@ -18,6 +19,7 @@ import {
 
 //firebase
 import { app } from "../../firebase.js";
+
 import {
   getDownloadURL,
   ref,
@@ -39,8 +41,6 @@ export default function Jobid({ jobData, isAlreadyApplied }) {
 
   const [filePrec, setFilePrec] = useState(0);
   const lastUpdate = useRef(0);
-
-
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -110,10 +110,12 @@ export default function Jobid({ jobData, isAlreadyApplied }) {
         >
           <div className="md:flex">
             <div className="md:shrink-0 bg-blue-600 p-6 flex items-center justify-center">
-              <img
+              <Image
                 className="h-20 w-20 object-contain"
-                src={jobData.companyLogo}
+                src={jobData?.companyLogo}
                 alt={jobData.company}
+                width={50}
+                height={50}
               />
             </div>
             <div className="p-8">
@@ -206,10 +208,12 @@ export default function Jobid({ jobData, isAlreadyApplied }) {
                 >
                   {isApplied || isAlreadyApplied === "success" ? (
                     <span className="flex items-center justify-center">
-                      <img
+                      <Image
                         src="/check.png"
                         alt="check"
                         className="mr-2 h-5 w-5"
+                        width={10}
+                        height={10}
                       />
                       Applied
                     </span>
@@ -225,10 +229,12 @@ export default function Jobid({ jobData, isAlreadyApplied }) {
                     {selectedFile ? (
                       <>
                         <p> Uploaded Successfully</p>
-                        <img
+                        <Image
                           src="/check.png"
                           alt="check"
                           className="ml-2 h-5 w-5"
+                          height={10}
+                          width={10}
                         />
                       </>
                     ) : (

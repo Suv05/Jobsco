@@ -1,9 +1,10 @@
-"use client"
+"use client";
 
-import { saveJob, checkIfJobIsSaved } from "@/actions/Saved-Job-Action"
-import { motion } from "framer-motion"
-import { useRouter } from "next/navigation"
-import { useSelector } from "react-redux"
+import { saveJob, checkIfJobIsSaved } from "@/actions/Saved-Job-Action";
+import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import Image from "next/image";
 import {
   BookmarkPlus,
   ArrowUpDown,
@@ -11,98 +12,98 @@ import {
   MapPin,
   DollarSign,
   Filter,
-} from "lucide-react"
-import { useState, useEffect } from "react"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+} from "lucide-react";
+import { useState, useEffect } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Label } from "@/components/ui/label"
+} from "@/components/ui/popover";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 
 const cardColors = [
   "bg-[#2a2438]",
   "bg-[#352f44]",
   "bg-[#3a3845]",
   "bg-[#2c3333]",
-]
+];
 
-const jobTypes = ["fulltime", "parttime", "internship", "contract"]
+const jobTypes = ["fulltime", "parttime", "internship", "contract"];
 
 export default function Jobs({ jobs }) {
-  const router = useRouter()
-  const { user } = useSelector((state) => state.user)
-  const [savedJobs, setSavedJobs] = useState({})
-  const [searchTerm, setSearchTerm] = useState("")
-  const [sortBy, setSortBy] = useState("lastUpdated")
-  const [selectedJobTypes, setSelectedJobTypes] = useState([])
-  const [location, setLocation] = useState("")
+  const router = useRouter();
+  const { user } = useSelector((state) => state.user);
+  const [savedJobs, setSavedJobs] = useState({});
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortBy, setSortBy] = useState("lastUpdated");
+  const [selectedJobTypes, setSelectedJobTypes] = useState([]);
+  const [location, setLocation] = useState("");
 
   // Check if job is saved when the component mounts
   useEffect(() => {
     const fetchSavedStatus = async () => {
-      const savedStatuses = {}
+      const savedStatuses = {};
       for (const job of jobs) {
-        const response = await checkIfJobIsSaved(job._id, user)
-        savedStatuses[job._id] = response.status === "saved"
+        const response = await checkIfJobIsSaved(job._id, user);
+        savedStatuses[job._id] = response.status === "saved";
       }
-      setSavedJobs(savedStatuses)
-    }
+      setSavedJobs(savedStatuses);
+    };
 
     if (user) {
-      fetchSavedStatus()
+      fetchSavedStatus();
     }
-  }, [jobs, user])
+  }, [jobs, user]);
 
   const handelBookMark = async (jobId, user) => {
-    const response = await saveJob(jobId, user)
+    const response = await saveJob(jobId, user);
     if (response.status === "success") {
       setSavedJobs((prevSavedJobs) => ({
         ...prevSavedJobs,
         [jobId]: true,
-      }))
+      }));
     }
-  }
+  };
 
   const handleJobTypeChange = (jobType) => {
     setSelectedJobTypes((prev) =>
       prev.includes(jobType)
         ? prev.filter((type) => type !== jobType)
         : [...prev, jobType]
-    )
-  }
+    );
+  };
 
   // Filter and sort jobs based on user input
   const filteredJobs = jobs
     .filter((job) => {
       const matchesSearch =
         job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        job.company.toLowerCase().includes(searchTerm.toLowerCase())
+        job.company.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesJobType =
-        selectedJobTypes.length === 0 || selectedJobTypes.includes(job.jobType)
+        selectedJobTypes.length === 0 || selectedJobTypes.includes(job.jobType);
       const matchesLocation =
         location === "" ||
-        job.location.toLowerCase().includes(location.toLowerCase())
-      return matchesSearch && matchesJobType && matchesLocation
+        job.location.toLowerCase().includes(location.toLowerCase());
+      return matchesSearch && matchesJobType && matchesLocation;
     })
     .sort((a, b) => {
       if (sortBy === "salary") {
-        return b.salary - a.salary
+        return b.salary - a.salary;
       } else {
         // Assuming there's a lastUpdated field, otherwise replace with appropriate field
-        return new Date(b.updatedAt) - new Date(a.updatedAt)
+        return new Date(b.updatedAt) - new Date(a.updatedAt);
       }
-    })
+    });
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100">
@@ -131,7 +132,10 @@ export default function Jobs({ jobs }) {
               </Select>
               <Popover>
                 <PopoverTrigger asChild>
-                  <Button variant="outline" className="bg-gray-700 text-gray-100 border-gray-600">
+                  <Button
+                    variant="outline"
+                    className="bg-gray-700 text-gray-100 border-gray-600"
+                  >
                     <Filter className="mr-2 h-4 w-4" /> Filter
                   </Button>
                 </PopoverTrigger>
@@ -141,7 +145,10 @@ export default function Jobs({ jobs }) {
                       <h4 className="font-medium leading-none">Job Type</h4>
                       <div className="grid grid-cols-2 gap-2">
                         {jobTypes.map((type) => (
-                          <div key={type} className="flex items-center space-x-2">
+                          <div
+                            key={type}
+                            className="flex items-center space-x-2"
+                          >
                             <Checkbox
                               id={type}
                               checked={selectedJobTypes.includes(type)}
@@ -208,10 +215,12 @@ export default function Jobs({ jobs }) {
                     </h3>
                     <p className="text-gray-300">{job.company}</p>
                   </div>
-                  <img
-                    src={job.companyLogo}
+                  <Image
+                    src={job?.companyLogo}
                     alt={job.company}
                     className="w-12 h-12 rounded-full"
+                    width={25}
+                    height={25}
                   />
                 </div>
                 <div className="flex flex-wrap gap-2 mb-4">
@@ -262,5 +271,5 @@ export default function Jobs({ jobs }) {
         </div>
       </section>
     </div>
-  )
+  );
 }

@@ -25,7 +25,7 @@ export default function GlobalError({ error, reset }) {
               Oops! Something went wrong
             </h1>
             <p className="text-xl text-gray-400">
-              We've encountered an unexpected error.
+              We&apos;ve encountered an unexpected error.
             </p>
           </div>
           <div className="bg-gray-800 p-6 rounded-lg shadow-lg">

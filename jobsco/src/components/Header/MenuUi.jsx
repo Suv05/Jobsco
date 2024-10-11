@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { UserButton, SignOutButton, useUser } from "@clerk/nextjs";
-import { useSelector } from "react-redux";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { FaBars } from "react-icons/fa";
@@ -46,10 +46,12 @@ export default function MenuUi({ toggleMenu }) {
             {/* Logo */}
             <div className="flex justify-start lg:w-0 lg:flex-1">
               <Link href="/" className="flex items-center">
-                <img
+                <Image
                   src="/jobsco.png"
                   alt="Jobsco Logo"
                   className="h-8 w-auto sm:h-10"
+                  height={40} // You can adjust this based on your design needs
+                  width={80} // Adjust this as well for proportional scaling
                 />
                 <span className="ml-2 text-2xl font-medium text-white">
                   Jobsco

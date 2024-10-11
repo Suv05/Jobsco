@@ -1,6 +1,6 @@
 "use client";
 
-import Image from 'next/image'
+import Image from "next/image";
 import { saveJob, checkIfJobIsSaved } from "@/actions/Saved-Job-Action";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
@@ -70,11 +70,11 @@ export default function Homepage({ jobs }) {
         <Image
           src="https://www.4kgroup.com.au/images/content/careers-44.jpg"
           alt="Background"
-          layout="fill"
-          objectFit="cover"
+          fill
           quality={100}
-          className="z-0"
+          className="z-0 object-cover"
         />
+
         <div className="absolute inset-0 bg-black bg-opacity-60 z-10"></div>
         <div className="relative z-20 text-white p-8 w-full max-w-4xl mx-auto">
           <h1 className="text-5xl font-bold text-center mb-4 text-purple-200">

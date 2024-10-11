@@ -124,7 +124,7 @@ export default function RecruiterDetailsForm() {
             Complete Your Profile
           </CardTitle>
           <CardDescription className="text-lg">
-            Let's get to know you better
+            Let&apos;s get to know you better
           </CardDescription>
         </CardHeader>
         <CardContent>

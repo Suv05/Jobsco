@@ -19,7 +19,9 @@ import { useSearchParams } from "next/navigation";
 import { useSelector } from "react-redux";
 
 // Replace with your Stripe publishable key
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPI_PUBLIC_KEY);
+const stripePromise = loadStripe(
+  "pk_test_51Q7ict2KuUbUTlzLMHteOu2sk2z1Py0OWdpHpQnKB5dj2K5iWqxcZnBUQlTLW6TmX3j33kMv71QELQZzAXJjQrvx00J2LkY5Qg"
+);
 
 const plans = [
   {
@@ -67,7 +69,7 @@ export default function Pricing({ role, whichPlan }) {
       }
     }
     checkStatus();
-  }, [pathName]); // Add necessary dependencies
+  }, [pathName, user, role, router]); // Added 'user', 'role', and 'router' dependencies
 
   const handleSelectPlan = (plan) => {
     setSelectedPlan(plan);
@@ -134,7 +136,7 @@ export default function Pricing({ role, whichPlan }) {
               <CardHeader>
                 <CardTitle>Complete Your Purchase</CardTitle>
                 <CardDescription>
-                  You've selected the {selectedPlan.name} plan at $
+                  You&apos;ve selected the {selectedPlan.name} plan at $
                   {selectedPlan.price.toFixed(2)}/month
                 </CardDescription>
               </CardHeader>
