@@ -1,5 +1,6 @@
 "use client";
 
+import Image from 'next/image'
 import { saveJob, checkIfJobIsSaved } from "@/actions/Saved-Job-Action";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
@@ -65,30 +66,38 @@ export default function Homepage({ jobs }) {
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900 text-white p-8 min-h-screen flex flex-col justify-center">
-        <h1 className="text-5xl font-bold text-center mb-4 text-purple-200">
-          Find Your Dream Job
-        </h1>
-        <p className="text-xl text-center mb-8 text-purple-100">
-          Discover opportunities that match your skills and aspirations.
-        </p>
-        <div className="flex flex-col sm:flex-row justify-center items-stretch gap-3 max-w-xl mx-auto">
-          <div className="relative flex-grow">
-            <Input
-              type="text"
-              placeholder="Search jobs..."
-              className="pl-10 pr-4 py-3 w-full text-gray-200 bg-opacity-20 bg-gray-800 border-gray-700 focus:ring-purple-500 focus:border-purple-500 rounded-md placeholder-gray-400"
-            />
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Search className="h-5 w-5 text-purple-300" />
+      <div className="relative min-h-screen flex flex-col justify-center items-center">
+        <Image
+          src="https://www.4kgroup.com.au/images/content/careers-44.jpg"
+          alt="Background"
+          layout="fill"
+          objectFit="cover"
+          quality={100}
+          className="z-0"
+        />
+        <div className="absolute inset-0 bg-black bg-opacity-60 z-10"></div>
+        <div className="relative z-20 text-white p-8 w-full max-w-4xl mx-auto">
+          <h1 className="text-5xl font-bold text-center mb-4 text-purple-200">
+            Find Your Dream Job
+          </h1>
+          <p className="text-xl text-center mb-8 text-purple-100">
+            Discover opportunities that match your skills and aspirations.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center items-stretch gap-3 max-w-xl mx-auto">
+            <div className="relative flex-grow">
+              <Input
+                type="text"
+                placeholder="Search jobs..."
+                className="pl-10 pr-4 py-3 w-full text-gray-200 bg-opacity-20 bg-gray-800 border-gray-700 focus:ring-purple-500 focus:border-purple-500 rounded-md placeholder-gray-400"
+              />
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Search className="h-5 w-5 text-purple-300" />
+              </div>
             </div>
+            <Button className="bg-purple-600 text-white hover:bg-purple-700 px-6 py-3 text-lg rounded-md transition duration-300 ease-in-out">
+              Search
+            </Button>
           </div>
-          <Button
-            className="bg-purple-600 text-white hover:bg-purple-700 px-6 py-3 text-lg rounded-md transition duration-300 ease-in-out"
-            onClick={() => router.push("/jobs")}
-          >
-            Search
-          </Button>
         </div>
       </div>
 
