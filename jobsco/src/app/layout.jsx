@@ -1,9 +1,7 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
-
-import { Rubik } from "next/font/google";
 import { Suspense } from "react";
-
+import { Rubik } from "next/font/google";
 import "./globals.css";
 
 import Providers from "./Providers";
@@ -17,11 +15,34 @@ const rubik = Rubik({
 });
 
 async function RootLayout({ children }) {
-  // Get the userId from auth() -- if null, the user is not signed in
   const { userId } = auth();
 
   return (
     <html lang="en" className={`${rubik.variable} font-sans`}>
+      <head>
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="AI-powered job search platform." />
+
+        {/* Open Graph / Twitter SEO Tags */}
+        <meta property="og:title" content="Jobsco - AI-Powered Job Search Platform" />
+        <meta
+          property="og:description"
+          content="Discover your dream job with Jobsco, an AI-powered job platform offering personalized job recommendations and AI chat assistance."
+        />
+        <meta property="og:image" content="/jobsco.png" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Jobsco - AI-Powered Job Search Platform" />
+        <meta
+          name="twitter:description"
+          content="Jobsco provides personalized job recommendations and AI chat assistance."
+        />
+        <meta name="twitter:image" content="/jobsco.png" />
+      </head>
+
       <body>
         <Suspense fallback={<Spinner />}>
           <ClerkProvider>
