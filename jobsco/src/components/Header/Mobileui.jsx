@@ -29,11 +29,24 @@ export default function MobileUi({ toggleMenu }) {
 
   const isActive = (href) => pathname === href;
 
-  const menuItems = [
+  const menuItemsForCandidate = [
     { href: "/", icon: MdHome, label: "Home" },
     { href: "/jobs", icon: MdSearch, label: "Find Jobs" },
     { href: "/dashboard", icon: MdDashboard, label: "Dashboard" },
     { href: "/job-profile", icon: MdPerson, label: "Job Profile" },
+    { href: "/pricing", icon: MdMonetizationOn, label: "Try Premium" },
+    { href: "/ask-ai", icon: MdRocketLaunch, label: "Ask AI" },
+    { href: "/about", icon: MdHelp, label: "FAQ" },
+  ];
+  const menuItemsForRecruiter = [
+    { href: "/", icon: MdHome, label: "Home" },
+    {
+      href: `/dashboard/${user?.unsafeMetadata?.role}`,
+      icon: MdDashboard,
+      label: "Dashboard",
+    },
+    { href: "/post-job", icon: MdSearch, label: "Post Job" },
+    { href: `/${user?.id}/jobs`, icon: MdPerson, label: "Job Overview" },
     { href: "/pricing", icon: MdMonetizationOn, label: "Try Premium" },
     { href: "/ask-ai", icon: MdRocketLaunch, label: "Ask AI" },
     { href: "/about", icon: MdHelp, label: "FAQ" },
@@ -60,21 +73,37 @@ export default function MobileUi({ toggleMenu }) {
           </button>
         </div>
         <nav className="space-y-1">
-          {menuItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`flex items-center px-4 py-3 text-sm font-medium rounded-md transition-colors ${
-                isActive(item.href)
-                  ? "bg-gray-800 text-white"
-                  : "text-gray-300 hover:bg-gray-800 hover:text-white"
-              }`}
-              onClick={toggleMenu}
-            >
-              <item.icon className="mr-3 h-5 w-5" />
-              {item.label}
-            </Link>
-          ))}
+          {user?.unsafeMetadata?.role === "candidate"
+            ? menuItemsForCandidate.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`flex items-center px-4 py-3 text-sm font-medium rounded-md transition-colors ${
+                    isActive(item.href)
+                      ? "bg-gray-800 text-white"
+                      : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                  }`}
+                  onClick={toggleMenu}
+                >
+                  <item.icon className="mr-3 h-5 w-5" />
+                  {item.label}
+                </Link>
+              ))
+            : menuItemsForRecruiter.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`flex items-center px-4 py-3 text-sm font-medium rounded-md transition-colors ${
+                    isActive(item.href)
+                      ? "bg-gray-800 text-white"
+                      : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                  }`}
+                  onClick={toggleMenu}
+                >
+                  <item.icon className="mr-3 h-5 w-5" />
+                  {item.label}
+                </Link>
+              ))}
         </nav>
         <div className="mt-6 pt-6 border-t border-gray-700">
           {user ? (
