@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { FaTimes } from "react-icons/fa";
@@ -57,10 +58,12 @@ export default function MobileUi({ toggleMenu }) {
       <div className="p-5">
         <div className="flex justify-between items-center mb-6">
           <Link href="/" className="flex items-center" onClick={toggleMenu}>
-            <img
+            <Image
               src="/jobsco.png"
               alt="Jobsco Logo"
               className="h-8 w-auto sm:h-10"
+              width={18}
+              height={18}
             />
             <span className="ml-2 text-xl font-medium text-white">Jobsco</span>
           </Link>

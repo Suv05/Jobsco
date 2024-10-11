@@ -159,10 +159,12 @@ export default function Homepage({ jobs }) {
                         </h3>
                         <p className="text-gray-300">{job.company}</p>
                       </div>
-                      <img
+                      <Image
                         src={job.companyLogo}
                         alt={job.company}
                         className="w-12 h-12 rounded-full"
+                        width={20}
+                        height={20}
                       />
                     </div>
                     <div className="flex flex-wrap gap-2 mb-4">
