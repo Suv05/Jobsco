@@ -171,13 +171,13 @@ export default function UpdateForm({ fetchData }) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-700 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="bg-white bg-opacity-90 backdrop-filter backdrop-blur-lg shadow-2xl rounded-2xl overflow-hidden"
+          className="bg-slate-900 bg-opacity-90 backdrop-filter backdrop-blur-lg shadow-2xl rounded-2xl overflow-hidden"
         >
           <div className="px-6 sm:px-10 py-8 sm:py-12">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 mb-8 sm:mb-12">
@@ -191,7 +191,7 @@ export default function UpdateForm({ fetchData }) {
                 <div className="col-span-full">
                   <Label
                     htmlFor="title"
-                    className="text-lg font-semibold text-gray-700"
+                    className="text-lg font-semibold text-gray-400"
                   >
                     Job Title
                   </Label>
@@ -200,7 +200,7 @@ export default function UpdateForm({ fetchData }) {
                     {...register("title", {
                       required: "Job title is required",
                     })}
-                    className="mt-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                    className="mt-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-white"
                     placeholder="Enter job title"
                   />
                   {errors.title && (
@@ -213,7 +213,7 @@ export default function UpdateForm({ fetchData }) {
                 <div>
                   <Label
                     htmlFor="company"
-                    className="text-lg font-semibold text-gray-700"
+                    className="text-lg font-semibold text-gray-400"
                   >
                     Company
                   </Label>
@@ -226,7 +226,7 @@ export default function UpdateForm({ fetchData }) {
                       {...register("company", {
                         required: "Company is required",
                       })}
-                      className="pl-10 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                      className="pl-10 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-white"
                       placeholder="Enter company name"
                     />
                   </div>
@@ -240,7 +240,7 @@ export default function UpdateForm({ fetchData }) {
                 <div>
                   <Label
                     htmlFor="location"
-                    className="text-lg font-semibold text-gray-700"
+                    className="text-lg font-semibold text-gray-400"
                   >
                     Location
                   </Label>
@@ -253,7 +253,7 @@ export default function UpdateForm({ fetchData }) {
                       {...register("location", {
                         required: "Location is required",
                       })}
-                      className="pl-10 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                      className="pl-10 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-white"
                       placeholder="Enter location"
                     />
                   </div>
@@ -267,14 +267,14 @@ export default function UpdateForm({ fetchData }) {
                 <motion.div whileHover={{ scale: 1.02 }}>
                   <Label
                     htmlFor="jobType"
-                    className="block text-lg font-semibold text-gray-700"
+                    className="block text-lg font-semibold text-gray-400"
                   >
                     Job Type
                   </Label>
                   <select
                     id="jobType"
                     {...register("jobType")}
-                    className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-500 text-sm"
+                    className="mt-1 block w-full bg-slate-900 border border-white rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-white text-sm"
                   >
                     <option value="">Select a job type</option>
                     <option value="fulltime">Full-time</option>
@@ -287,7 +287,7 @@ export default function UpdateForm({ fetchData }) {
                 <div>
                   <Label
                     htmlFor="salary"
-                    className="text-lg font-semibold text-gray-700"
+                    className="text-lg font-semibold text-gray-400"
                   >
                     Salary
                   </Label>
@@ -301,7 +301,7 @@ export default function UpdateForm({ fetchData }) {
                       {...register("salary", {
                         required: "salary is required",
                       })}
-                      className="pl-10 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                      className="pl-10 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-white"
                       placeholder="115k"
                     />
                   </div>
@@ -315,7 +315,7 @@ export default function UpdateForm({ fetchData }) {
                 <div>
                   <Label
                     htmlFor="experienceLevel"
-                    className="text-lg font-semibold text-gray-700"
+                    className="text-lg font-semibold text-gray-400"
                   >
                     Experience Level
                   </Label>
@@ -328,7 +328,7 @@ export default function UpdateForm({ fetchData }) {
                       {...register("experienceLevel", {
                         required: "Experience level is required",
                       })}
-                      className="pl-10 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                      className="pl-10 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-white"
                       placeholder="Enter experience level"
                     />
                   </div>
@@ -342,7 +342,7 @@ export default function UpdateForm({ fetchData }) {
                 <div>
                   <Label
                     htmlFor="industry"
-                    className="text-lg font-semibold text-gray-700"
+                    className="text-lg font-semibold text-gray-400"
                   >
                     Industry
                   </Label>
@@ -355,7 +355,7 @@ export default function UpdateForm({ fetchData }) {
                       {...register("industry", {
                         required: "Industry is required",
                       })}
-                      className="pl-10 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                      className="pl-10 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-white"
                       placeholder="Enter industry"
                     />
                   </div>
@@ -369,7 +369,7 @@ export default function UpdateForm({ fetchData }) {
                 <div>
                   <Label
                     htmlFor="educationRequirements"
-                    className="text-lg font-semibold text-gray-700"
+                    className="text-lg font-semibold text-gray-400"
                   >
                     Education Requirements
                   </Label>
@@ -382,7 +382,7 @@ export default function UpdateForm({ fetchData }) {
                       {...register("educationRequirements", {
                         required: "Education requirements are required",
                       })}
-                      className="pl-10 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                      className="pl-10 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-white"
                       placeholder="Enter education requirements"
                     />
                   </div>
@@ -396,7 +396,7 @@ export default function UpdateForm({ fetchData }) {
                 <div>
                   <Label
                     htmlFor="applicationDeadline"
-                    className="text-lg font-semibold text-gray-700"
+                    className="text-lg font-semibold text-gray-400"
                   >
                     Application Deadline
                   </Label>
@@ -410,7 +410,7 @@ export default function UpdateForm({ fetchData }) {
                       {...register("applicationDeadline", {
                         required: "Application deadline is required",
                       })}
-                      className="pl-10 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                      className="pl-10 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-white"
                       placeholder="Select a date"
                     />
                   </div>
@@ -424,7 +424,7 @@ export default function UpdateForm({ fetchData }) {
                 <div>
                   <Label
                     htmlFor="contactEmail"
-                    className="text-lg font-semibold text-gray-700"
+                    className="text-lg font-semibold text-gray-400"
                   >
                     Contact Email
                   </Label>
@@ -438,7 +438,7 @@ export default function UpdateForm({ fetchData }) {
                       {...register("contactEmail", {
                         required: "Contact email is required",
                       })}
-                      className="pl-10 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                      className="pl-10 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-white"
                       placeholder="Enter your email address"
                     />
                   </div>
@@ -452,7 +452,7 @@ export default function UpdateForm({ fetchData }) {
                 <div className="col-span-full">
                   <Label
                     htmlFor="description"
-                    className="text-lg font-semibold text-gray-700"
+                    className="text-lg font-semibold text-gray-400"
                   >
                     Job Description
                   </Label>
@@ -460,7 +460,7 @@ export default function UpdateForm({ fetchData }) {
                     id="description"
                     {...register("description")}
                     rows="4"
-                    className="mt-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                    className="mt-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-white"
                     placeholder="Enter a job description"
                   />
                   {errors.description && (
@@ -504,7 +504,7 @@ export default function UpdateForm({ fetchData }) {
                 <div className="col-span-full">
                   <Label
                     htmlFor="companyLogo"
-                    className="text-lg font-semibold text-gray-700"
+                    className="text-lg font-semibold text-gray-400"
                   >
                     Company Logo URL
                   </Label>
@@ -512,7 +512,7 @@ export default function UpdateForm({ fetchData }) {
                     id="companyLogo"
                     type="url"
                     {...register("companyLogo")}
-                    className="mt-1 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                    className="mt-1 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-white"
                     placeholder="https://example.com/logo.png"
                   />
                   {errors.companyLogo && (
@@ -530,7 +530,7 @@ export default function UpdateForm({ fetchData }) {
                   type="submit"
                   className="w-full inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-                  Post Job
+                 Update Job
                 </motion.button>
               </div>
             </form>
