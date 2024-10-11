@@ -1,5 +1,5 @@
 import Homepage from "@/components/home/Homepage";
-import { fetchAllJobs } from "@/actions/Job-Fetch-Action";
+import { fetchCountJobs } from "@/actions/Job-Fetch-Action";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { validateUser } from "@/actions/Validate-User";
 import { redirect } from "next/navigation";
@@ -28,7 +28,7 @@ async function Home() {
     redirect(`/onboard/${role}`);
   }
 
-  const { data: jobs } = await fetchAllJobs();
+  const { data: jobs } = await fetchCountJobs();
 
   return (
     <>
