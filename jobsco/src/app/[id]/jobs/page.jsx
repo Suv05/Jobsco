@@ -4,16 +4,16 @@ import {
   fetchAppliedCandidates,
 } from "@/actions/Job-Action-By-Recurtor";
 import { auth, currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
 async function Page() {
-  const { userId, has } = auth();
+  const { userId } = auth();
   const user = await currentUser();
 
   //role based authorization
   const userRole = user?.unsafeMetadata?.role === "recruiter";
-  const canSee = has({ userRole });
 
-  if (!canSee) redirect("/not-found");
+  if (!userRole) redirect("/not-found");
 
   const { data: jobs } = await fetchRJobs(userId);
 
