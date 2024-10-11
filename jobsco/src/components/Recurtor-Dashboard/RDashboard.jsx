@@ -16,7 +16,7 @@ import { Plus, Search, ArrowRight } from "lucide-react";
 
 import RecruiterProfileCard from "../Info-card/RecutorProfileCard.jsx";
 
-export default function RDashboard({ recruiterInfo, recruiterJobInfo,isPro }) {
+export default function RDashboard({ recruiterInfo, recruiterJobInfo, isPro }) {
   const { user } = useUser();
   return (
     <>
@@ -70,7 +70,7 @@ export default function RDashboard({ recruiterInfo, recruiterJobInfo,isPro }) {
                   recruiterJobInfo.map((job, index) => (
                     <JobListing
                       key={index}
-                      id={job.id}
+                      id={user?.id}
                       title={job?.title}
                       department={job?.industry}
                       location={job?.location}
@@ -92,7 +92,9 @@ export default function RDashboard({ recruiterInfo, recruiterJobInfo,isPro }) {
 
           <Card className="bg-gray-800 border-gray-700">
             <CardHeader className="bg-gradient-to-r from-green-500 to-blue-600 text-white">
-              <CardTitle>Candidate Pipeline</CardTitle>
+              <CardTitle>
+                Candidate Pipeline <Badge className={`text-white bg-[#323232] text-lg px-3`}>Beta</Badge>
+              </CardTitle>
               <CardDescription className="text-blue-200">
                 Overview of your hiring funnel
               </CardDescription>
@@ -137,7 +139,7 @@ function JobListing({
           {applicantsCount} applicants
         </p>
         <p className="text-sm text-gray-400">{daysAgo} days ago</p>
-        <Link href={`/job-profile/${id}`}>
+        <Link href={`/${id}/jobs`}>
           <Button
             variant="link"
             size="sm"
