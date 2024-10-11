@@ -22,6 +22,8 @@ export default function MenuUi({ toggleMenu }) {
   const pathname = usePathname();
   const audioRef = useRef(null);
 
+  const userRole = user?.unsafeMetadata?.role;
+
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -207,32 +209,66 @@ export default function MenuUi({ toggleMenu }) {
                     Dashboard
                   </div>
                 </Link>
-                <Link
-                  href="/jobs"
-                  className={`block py-2 px-4 rounded transition-colors duration-200 ${
-                    isActive("/jobs")
-                      ? "bg-[#2a2a2a] text-white"
-                      : "text-gray-300 hover:bg-[#2a2a2a]"
-                  }`}
-                >
-                  <div className="flex items-center">
-                    <MdWork className="mr-2" />
-                    Find Jobs
-                  </div>
-                </Link>
-                <Link
-                  href="/job-profile"
-                  className={`block py-2 px-4 rounded transition-colors duration-200 ${
-                    isActive("/job-profile")
-                      ? "bg-[#2a2a2a] text-white"
-                      : "text-gray-300 hover:bg-[#2a2a2a]"
-                  }`}
-                >
-                  <div className="flex items-center">
-                    <MdPreview className="mr-2" />
-                    Job Profile
-                  </div>
-                </Link>
+                {userRole === "recruiter" ? (
+                  <Link
+                    href="/post-job"
+                    className={`block py-2 px-4 rounded transition-colors duration-200 ${
+                      isActive("/post-job")
+                        ? "bg-[#2a2a2a] text-white"
+                        : "text-gray-300 hover:bg-[#2a2a2a]"
+                    }`}
+                  >
+                    <div className="flex items-center">
+                      <MdWork className="mr-2" />
+                      Post Jobs
+                    </div>
+                  </Link>
+                ) : (
+                  <Link
+                    href="/jobs"
+                    className={`block py-2 px-4 rounded transition-colors duration-200 ${
+                      isActive("/jobs")
+                        ? "bg-[#2a2a2a] text-white"
+                        : "text-gray-300 hover:bg-[#2a2a2a]"
+                    }`}
+                  >
+                    <div className="flex items-center">
+                      <MdWork className="mr-2" />
+                      Find Jobs
+                    </div>
+                  </Link>
+                )}
+
+                {userRole === "recruiter" ? (
+                  <Link
+                    href={`/${user?.id}/jobs`}
+                    className={`block py-2 px-4 rounded transition-colors duration-200 ${
+                      isActive(`/${user?.id}/jobs`)
+                        ? "bg-[#2a2a2a] text-white"
+                        : "text-gray-300 hover:bg-[#2a2a2a]"
+                    }`}
+                  >
+                    <div className="flex items-center">
+                      <MdPreview className="mr-2" />
+                      Job Overview
+                    </div>
+                  </Link>
+                ) : (
+                  <Link
+                    href="/job-profile"
+                    className={`block py-2 px-4 rounded transition-colors duration-200 ${
+                      isActive("/job-profile")
+                        ? "bg-[#2a2a2a] text-white"
+                        : "text-gray-300 hover:bg-[#2a2a2a]"
+                    }`}
+                  >
+                    <div className="flex items-center">
+                      <MdPreview className="mr-2" />
+                      Job Profile
+                    </div>
+                  </Link>
+                )}
+
                 <Link
                   href="/pricing"
                   className={`block py-2 px-4 rounded transition-colors duration-200 ${
