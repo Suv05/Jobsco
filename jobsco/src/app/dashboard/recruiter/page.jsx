@@ -1,4 +1,4 @@
-import { currentUser, auth } from "@clerk/nextjs/server";
+import { currentUser } from "@clerk/nextjs/server";
 import { fetchRecuterInfo } from "@/actions/Fetch-R&C-Info-Action";
 import { fetchRJobs } from "@/actions/Job-Action-By-Recurtor";
 import { fetchNumberOfApplicants } from "@/actions/Apply-For-Job-Action";
@@ -9,13 +9,11 @@ import { redirect } from "next/navigation";
 
 export default async function RecruiterDashboard() {
   const user = await currentUser();
-  const { has } = auth();
 
   //role based authorization
   const userRole = user?.unsafeMetadata?.role === "recruiter";
-  const canSee = has({ userRole });
 
-  if (!canSee) redirect("/not-found");
+  if (!userRole) redirect("/not-found");
 
   const { data: recruInfo } = await fetchRecuterInfo(user?.id);
   const { data: recruJobInfo } = await fetchRJobs(user?.id);
