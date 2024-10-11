@@ -1,6 +1,6 @@
 "use client";
 
-import { updateStatus } from "@/actions/Job-Action-By-Recurtor";
+import { updateStatus, deleteRJob } from "@/actions/Job-Action-By-Recurtor";
 import Spinner from "@/app/loading";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
@@ -16,25 +16,28 @@ import {
   FileText,
 } from "lucide-react";
 import Image from "next/image";
-import { Button } from "../ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "../ui/accordion";
+} from "@/components/ui/accordion";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../ui/select";
+} from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
+import { Toaster } from "@/components/ui/toaster";
 
 export default function RecruiterJobsPage({ jobs }) {
   const { user } = useUser();
   const router = useRouter();
+  const { toast } = useToast();
 
   if (!user) {
     return (
@@ -49,9 +52,17 @@ export default function RecruiterJobsPage({ jobs }) {
   async function handelJobDelete(jobId) {
     const { status, message } = await deleteRJob(jobId, userId);
     if (status === "success") {
-      alert(message);
+      toast({
+        title: "Success",
+        description: message,
+        variant: "default",
+      });
     } else {
-      alert(message);
+      toast({
+        title: "Error",
+        description: message,
+        variant: "destructive",
+      });
     }
   }
 
@@ -60,8 +71,6 @@ export default function RecruiterJobsPage({ jobs }) {
   };
 
   async function handleStatusChange(jobId, candidateId, value) {
-    //call api here to update status
-
     const { status, message } = await updateStatus(
       jobId,
       candidateId,
@@ -69,9 +78,17 @@ export default function RecruiterJobsPage({ jobs }) {
       value
     );
     if (status === "success") {
-      alert(message);
+      toast({
+        title: "Status Updated",
+        description: message,
+        variant: "default",
+      });
     } else {
-      alert(message);
+      toast({
+        title: "Error",
+        description: message,
+        variant: "destructive",
+      });
     }
   }
 
@@ -127,16 +144,16 @@ export default function RecruiterJobsPage({ jobs }) {
                   {job.description}
                 </p>
                 <div className="flex flex-wrap gap-2 mb-4">
-                  <span className=" capitalize  text-xs bg-gray-700 text-[#ffffff] rounded-full px-3 py-1">
+                  <span className="capitalize text-xs bg-gray-700 text-[#ffffff] rounded-full px-3 py-1">
                     {job.jobType}
                   </span>
-                  <span className=" capitalize text-xs bg-gray-700 text-[#ffffff] rounded-full px-3 py-1">
+                  <span className="capitalize text-xs bg-gray-700 text-[#ffffff] rounded-full px-3 py-1">
                     {job.experienceLevel}
                   </span>
                   {job.skillsRequired.map((skill, index) => (
                     <span
                       key={index}
-                      className=" capitalize text-xs bg-gray-700 text-[#ffffff] rounded-full px-3 py-1"
+                      className="capitalize text-xs bg-gray-700 text-[#ffffff] rounded-full px-3 py-1"
                     >
                       {skill}
                     </span>
@@ -197,7 +214,7 @@ export default function RecruiterJobsPage({ jobs }) {
                                 {candidate.status === "rejected" ? (
                                   <img
                                     src="/red.png"
-                                    alt="green tick"
+                                    alt="red cross"
                                     className="w-4 h-4 mr-2"
                                   />
                                 ) : (
@@ -265,6 +282,7 @@ export default function RecruiterJobsPage({ jobs }) {
           ))}
         </div>
       </div>
+      <Toaster />
     </div>
   );
 }
