@@ -10,6 +10,36 @@ export async function fetchAllJobs() {
 
     if (jobs) {
       // Use the actual userId in the path
+      revalidatePath(`/jobs`);
+
+      return {
+        status: "success",
+        data: JSON.parse(JSON.stringify(jobs)),
+      };
+    } else {
+      return {
+        status: "error",
+        message: "Failed to fetch jobs",
+      };
+    }
+  } catch (error) {
+    console.log(error);
+    return {
+      status: "error",
+      message: "Failed to fetch jobs",
+    };
+  }
+}
+
+//fectch count nummber of jobs 
+export async function fetchCountJobs() {
+  try {
+    await createConnection();
+
+    const jobs = await Job.find({}).limit(6);
+
+    if (jobs) {
+      // Use the actual userId in the path
       revalidatePath(`/`);
 
       return {
@@ -30,6 +60,7 @@ export async function fetchAllJobs() {
     };
   }
 }
+
 
 export async function fetchSingleJob(jobId) {
   try {
