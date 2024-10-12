@@ -1,7 +1,12 @@
 import { useState, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { UserButton, SignOutButton, useUser } from "@clerk/nextjs";
+import {
+  UserButton,
+  SignOutButton,
+  useUser,
+  SignInButton,
+} from "@clerk/nextjs";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -60,16 +65,36 @@ export default function MenuUi({ toggleMenu }) {
             </div>
 
             {/* Mobile menu button */}
-            <div className="md:hidden">
-              <button
-                type="button"
-                className="bg-[#323232] rounded-md p-2 inline-flex items-center justify-center text-gray-200 hover:text-white hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
-                onClick={toggleMenu}
+            {user ? (
+              <div className="md:hidden">
+                <button
+                  type="button"
+                  className="bg-[#323232] rounded-md p-2 inline-flex items-center justify-center text-gray-200 hover:text-white hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                  onClick={toggleMenu}
+                >
+                  <span className="sr-only">Open menu</span>
+                  <FaBars className="h-6 w-6" aria-hidden="true" />
+                </button>
+              </div>
+            ) : (
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
               >
-                <span className="sr-only">Open menu</span>
-                <FaBars className="h-6 w-6" aria-hidden="true" />
-              </button>
-            </div>
+                <Link
+                  href="/sign-in"
+                  className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-200 md:hidden"
+                >
+                  <motion.span
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Sign-in
+                  </motion.span>
+                </Link>
+              </motion.div>
+            )}
 
             {/* Desktop menu */}
             <nav className="hidden md:flex space-x-10">

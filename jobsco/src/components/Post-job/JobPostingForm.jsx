@@ -504,7 +504,10 @@ export default function JobPostingForm() {
                     htmlFor="companyLogo"
                     className="text-lg font-semibold text-gray-300"
                   >
-                    Company Logo URL
+                    Company Logo URL{" "}
+                    <span className="text-sm font-light text-green-400">
+                      (only supported type is: data:image/png;base64,* )
+                    </span>
                   </Label>
                   <Input
                     id="companyLogo"

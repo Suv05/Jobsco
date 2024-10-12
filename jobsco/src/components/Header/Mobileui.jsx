@@ -33,7 +33,11 @@ export default function MobileUi({ toggleMenu }) {
   const menuItemsForCandidate = [
     { href: "/", icon: MdHome, label: "Home" },
     { href: "/jobs", icon: MdSearch, label: "Find Jobs" },
-    { href: "/dashboard", icon: MdDashboard, label: "Dashboard" },
+    {
+      href: `/dashboard/${user?.unsafeMetadata?.role}`,
+      icon: MdDashboard,
+      label: "Dashboard",
+    },
     { href: "/job-profile", icon: MdPerson, label: "Job Profile" },
     { href: "/pricing", icon: MdMonetizationOn, label: "Try Premium" },
     { href: "/ask-ai", icon: MdRocketLaunch, label: "Ask AI" },
