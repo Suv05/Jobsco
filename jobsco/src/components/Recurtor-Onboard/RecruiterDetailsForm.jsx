@@ -117,8 +117,8 @@ export default function RecruiterDetailsForm() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 flex items-center justify-center p-4">
-      <Card className="w-full max-w-4xl shadow-2xl bg-white/80 backdrop-blur-sm">
+    <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4 mt-2">
+      <Card className="w-full max-w-4xl shadow-2xl bg-gray-800 backdrop-blur-sm">
         <CardHeader className="text-center space-y-1">
           <CardTitle className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600">
             Complete Your Profile
@@ -133,21 +133,21 @@ export default function RecruiterDetailsForm() {
               <div className="flex flex-col items-center space-y-4">
                 <Avatar className="w-32 h-32 border-4 border-white shadow-lg">
                   <AvatarImage
-                    src="/placeholder-user.jpg"
+                    src={`${user?.imageUrl}`}
                     alt="Profile picture"
                   />
                   <AvatarFallback className="bg-gradient-to-br from-purple-400 to-blue-500">
                     <User className="w-16 h-16 text-white" />
                   </AvatarFallback>
                 </Avatar>
-                <Button
+                {/* <Button
                   variant="outline"
                   size="sm"
                   className="flex items-center space-x-2"
                 >
                   <Upload className="w-4 h-4" />
                   <span>Upload Photo</span>
-                </Button>
+                </Button> */}
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <FormField
@@ -157,13 +157,13 @@ export default function RecruiterDetailsForm() {
                     <FormItem>
                       <FormLabel className="flex items-center space-x-2">
                         <User className="w-4 h-4 text-blue-500" />
-                        <span>Full Name</span>
+                        <span className="text-white">Full Name</span>
                       </FormLabel>
                       <FormControl>
                         <Input
                           placeholder="John Doe"
                           {...field}
-                          className="bg-white/50"
+                          className="bg-slate-800 text-gray-300"
                         />
                       </FormControl>
                       <FormMessage />
@@ -177,13 +177,13 @@ export default function RecruiterDetailsForm() {
                     <FormItem>
                       <FormLabel className="flex items-center space-x-2">
                         <Building className="w-4 h-4 text-blue-500" />
-                        <span>Company Name</span>
+                        <span className="text-white">Company Name</span>
                       </FormLabel>
                       <FormControl>
                         <Input
                           placeholder="Acme Inc."
                           {...field}
-                          className="bg-white/50"
+                          className="bg-slate-800 text-gray-300"
                         />
                       </FormControl>
                       <FormMessage />
@@ -197,13 +197,13 @@ export default function RecruiterDetailsForm() {
                     <FormItem>
                       <FormLabel className="flex items-center space-x-2">
                         <Briefcase className="w-4 h-4 text-blue-500" />
-                        <span>Position</span>
+                        <span className="text-white">Position</span>
                       </FormLabel>
                       <FormControl>
                         <Input
                           placeholder="Senior Recruiter"
                           {...field}
-                          className="bg-white/50"
+                          className="bg-slate-800 text-gray-300"
                         />
                       </FormControl>
                       <FormMessage />
@@ -217,13 +217,13 @@ export default function RecruiterDetailsForm() {
                     <FormItem>
                       <FormLabel className="flex items-center space-x-2">
                         <Calendar className="w-4 h-4 text-blue-500" />
-                        <span>Year Joined</span>
+                        <span className="text-white">Year Joined</span>
                       </FormLabel>
                       <FormControl>
                         <Input
                           placeholder="2023"
                           {...field}
-                          className="bg-white/50"
+                          className="bg-slate-800 text-gray-300"
                         />
                       </FormControl>
                       <FormMessage />
@@ -237,13 +237,13 @@ export default function RecruiterDetailsForm() {
                     <FormItem>
                       <FormLabel className="flex items-center space-x-2">
                         <Mail className="w-4 h-4 text-blue-500" />
-                        <span>Email</span>
+                        <span className="text-white">Email</span>
                       </FormLabel>
                       <FormControl>
                         <Input
                           placeholder="john@example.com"
                           {...field}
-                          className="bg-white/50"
+                          className="bg-slate-800 text-gray-300"
                         />
                       </FormControl>
                       <FormMessage />
@@ -257,13 +257,13 @@ export default function RecruiterDetailsForm() {
                     <FormItem>
                       <FormLabel className="flex items-center space-x-2">
                         <Phone className="w-4 h-4 text-blue-500" />
-                        <span>Phone</span>
+                        <span className="text-white">Phone</span>
                       </FormLabel>
                       <FormControl>
                         <Input
                           placeholder="+1 (555) 000-0000"
                           {...field}
-                          className="bg-white/50"
+                          className="bg-slate-800 text-gray-300"
                         />
                       </FormControl>
                       <FormMessage />
@@ -277,13 +277,13 @@ export default function RecruiterDetailsForm() {
                     <FormItem>
                       <FormLabel className="flex items-center space-x-2">
                         <MapPin className="w-4 h-4 text-blue-500" />
-                        <span>Location</span>
+                        <span className="text-white">Location</span>
                       </FormLabel>
                       <FormControl>
                         <Input
                           placeholder="New York, NY"
                           {...field}
-                          className="bg-white/50"
+                          className="bg-slate-800 text-gray-300"
                         />
                       </FormControl>
                       <FormMessage />
@@ -297,13 +297,13 @@ export default function RecruiterDetailsForm() {
                     <FormItem>
                       <FormLabel className="flex items-center space-x-2">
                         <Linkedin className="w-4 h-4 text-blue-500" />
-                        <span>LinkedIn Profile</span>
+                        <span className="text-white">LinkedIn Profile</span>
                       </FormLabel>
                       <FormControl>
                         <Input
                           placeholder="https://linkedin.com/in/johndoe"
                           {...field}
-                          className="bg-white/50"
+                          className="bg-slate-800 text-gray-300"
                         />
                       </FormControl>
                       <FormMessage />
@@ -315,13 +315,13 @@ export default function RecruiterDetailsForm() {
                   name="industry"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Industry</FormLabel>
+                      <FormLabel className="text-white">Industry</FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
                       >
                         <FormControl>
-                          <SelectTrigger className="bg-white/50">
+                          <SelectTrigger className="bg-slate-800 text-gray-300">
                             <SelectValue placeholder="Select an industry" />
                           </SelectTrigger>
                         </FormControl>
@@ -342,11 +342,11 @@ export default function RecruiterDetailsForm() {
                   name="bio"
                   render={({ field }) => (
                     <FormItem className="col-span-full">
-                      <FormLabel>Bio</FormLabel>
+                      <FormLabel className="text-white">Bio</FormLabel>
                       <FormControl>
                         <Textarea
                           placeholder="Tell us a bit about yourself and your recruiting experience..."
-                          className="resize-none bg-white/50"
+                          className="resize-none bg-slate-800 text-gray-300"
                           {...field}
                         />
                       </FormControl>
@@ -363,7 +363,7 @@ export default function RecruiterDetailsForm() {
                   render={({ field }) => (
                     <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4 shadow-sm">
                       <div className="space-y-0.5">
-                        <FormLabel className="text-base">
+                        <FormLabel className="text-base text-white">
                           Email Notifications
                         </FormLabel>
                         <FormDescription>

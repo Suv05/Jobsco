@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { redirect, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -34,38 +34,34 @@ const roleData = [
 
 export default function OnboardPage() {
   const [selectedRole, setSelectedRole] = useState(null);
-  
   const { user } = useUser();
   const router = useRouter();
 
-  const userRole=user?.unsafeMetadata?.role;    
-  if(userRole){
-    redirect(`/onboard/${userRole}`);
-    return null;
-  }
-  
+  // Ensure redirect happens inside useEffect, not in render phase
+  useEffect(() => {
+    const userRole = user?.unsafeMetadata?.role;
+    if (userRole) {
+      router.push(`/onboard/${userRole}`);
+    }
+  }, [user, router]);
+
   const handleRoleSelection = async (role) => {
     setSelectedRole(role);
-    
+
     try {
       await user.update({
         unsafeMetadata: {
           role: role,
         },
       });
-      
-      if (role === "recruiter") {
-        router.push("/onboard/recruiter");
-      } else {
-        router.push("/onboard/candidate");
-      }
+      router.push(`/onboard/${role}`);
     } catch (err) {
       console.error("Error updating user role:", err.message);
     }
   };
-  
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-blue-900 flex items-center justify-center p-4">
+    <div className=" mt-2 min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-blue-900 flex items-center justify-center p-4">
       <Card className="w-full max-w-4xl overflow-hidden shadow-2xl bg-gray-800 text-gray-100">
         <CardHeader className="bg-gradient-to-r from-blue-800 to-purple-800 text-white p-6">
           <CardTitle className="text-3xl font-bold text-center">
@@ -76,7 +72,9 @@ export default function OnboardPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="p-6">
-          <h2 className="text-2xl font-semibold text-center mb-6 text-gray-100">I am a...</h2>
+          <h2 className="text-2xl font-semibold text-center mb-6 text-gray-100">
+            I am a...
+          </h2>
           <div className="grid gap-6 sm:grid-cols-2">
             {roleData.map((role) => (
               <RoleCard
@@ -106,7 +104,7 @@ export default function OnboardPage() {
 
 function RoleCard({ role, isSelected, onSelect }) {
   const Icon = role.icon;
-  
+
   return (
     <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
       <Card
@@ -121,7 +119,9 @@ function RoleCard({ role, isSelected, onSelect }) {
           >
             <Icon className="w-8 h-8 text-white" />
           </div>
-          <CardTitle className="text-center text-xl text-gray-100">{role.title}</CardTitle>
+          <CardTitle className="text-center text-xl text-gray-100">
+            {role.title}
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <p className="text-center text-gray-300">{role.description}</p>
