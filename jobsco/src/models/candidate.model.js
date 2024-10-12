@@ -14,19 +14,19 @@ const CandidateSchema = new Schema({
   fullName: {
     type: String,
     required: true,
-    maxlength: 30,
+    maxlength: 100,
     trim: true,
   },
   universityName: {
     type: String,
     required: true,
-    maxlength: 30,
+    maxlength: 100,
     trim: true,
   },
   degree: {
     type: String,
     required: true,
-    maxlength: 30,
+    maxlength: 100,
     trim: true,
     set: (value) =>
       value.charAt(0).toUpperCase() + value.slice(1).toLowerCase(),
@@ -66,7 +66,7 @@ const CandidateSchema = new Schema({
   major: {
     type: String,
     required: true,
-    maxlength: 30,
+    maxlength: 100,
     trim: true,
     set: (value) =>
       value.charAt(0).toUpperCase() + value.slice(1).toLowerCase(),

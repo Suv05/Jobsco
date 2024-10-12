@@ -14,13 +14,13 @@ const RecuterSchema = new Schema({
   fullName: {
     type: String,
     required: true,
-    maxlength: 30,
+    maxlength: 100,
     trim: true,
   },
   companyName: {
     type: String,
     required: true,
-    maxlength: 30,
+    maxlength: 100,
     trim: true,
     set: (value) =>
       value.charAt(0).toUpperCase() + value.slice(1).toLowerCase(),
@@ -28,7 +28,7 @@ const RecuterSchema = new Schema({
   position: {
     type: String,
     required: true,
-    maxlength: 30,
+    maxlength: 100,
     trim: true,
     set: (value) =>
       value.charAt(0).toUpperCase() + value.slice(1).toLowerCase(),
