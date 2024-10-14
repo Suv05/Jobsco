@@ -63,6 +63,16 @@ export default function Homepage({ jobs }) {
     }
   };
 
+  const handelSearch=()=>{
+    // Implement search functionality here
+    if(user){
+      router.push("/jobs")
+    }else{
+      router.push("/sign-in")
+    }
+  }
+
+ 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100">
       {/* Hero Section */}
@@ -94,7 +104,10 @@ export default function Homepage({ jobs }) {
                 <Search className="h-5 w-5 text-purple-300" />
               </div>
             </div>
-            <Button className="bg-purple-600 text-white hover:bg-purple-700 px-6 py-3 text-lg rounded-md transition duration-300 ease-in-out">
+            <Button
+              className="bg-purple-600 text-white hover:bg-purple-700 px-6 py-3 text-lg rounded-md transition duration-300 ease-in-out"
+              onClick={handelSearch}
+            >
               Search
             </Button>
           </div>
